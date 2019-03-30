@@ -3,13 +3,9 @@
  * If you think that there is room for improvement - pull request are open ;).
 */
 $( function() {
-  $("#accordion").accordion();
-  //disable toggles
-  $('#history-append-checkbox').bootstrapToggle('off')  
-  $('#history-shared-checkbox').bootstrapToggle('off')  
-  $('#alias-popd-pushd-checkbox').bootstrapToggle('off')  
-  $('#alias-cd-checkbox').bootstrapToggle('off')  
-
+  $("#accordion").accordion()
+  //turnoff toggles - smarter way, 
+  $('input[type=checkbox]').bootstrapToggle('off')
 });
 // History
 $( "#history-file-size-example" ).click(function() {
@@ -93,6 +89,9 @@ $( "#generate-button" ).click(function() {
   const enable_alias_now=$('#alias-colordiff-checkbox').prop('checked')// todo
   const enable_alias_my_ip=$('#alias-colordiff-checkbox').prop('checked')// todo
   
+  const option_timeout=$("#").val()//todo
+  const option_editor=$("#history-file-input").val() // todo
+  
   //debug 
   // console.log("enable_history_appending - ", enable_history_appending)
   // console.log("enable_history_shared - ", enable_history_shared)
@@ -148,14 +147,11 @@ $( "#generate-button" ).click(function() {
     alias_strings.push(str_alias_greps)
   }
   if (enable_alias_now){
-    alias_strings.push(str_alias_now)//fixme
+    alias_strings.push(str_alias_now)
   }
   if (enable_alias_my_ip){
-    alias_strings.push(str_alias_my_ip)//fixme
+    alias_strings.push(str_alias_my_ip)
   }
- 
-  
-  
   
   
   if (hist_strings.length !=0){
@@ -163,7 +159,7 @@ $( "#generate-button" ).click(function() {
     generated_results.push(hist_strings.join("\n"))
   }
   if (alias_strings.length !=0){
-    generated_results.push("# Aliases\n")
+    generated_results.push("\n# Aliases")
     generated_results.push(alias_strings.join("\n"))
   }
   if (options_strings.length !=0){

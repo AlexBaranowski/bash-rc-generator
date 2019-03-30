@@ -124,6 +124,10 @@
       <div class="input-group">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-colordiff-checkbox">
       </div>
+      <h4>Enable copying to pbcopy and pbpaste aliases TODO</h4>
+      <div class="input-group">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-copy-and-paste-checkbox">
+      </div>
       <h4>Enable now alias</h4>
       <div class="input-group">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-now-checkbox">
@@ -136,7 +140,7 @@
     </div>
     <h2>Options &#9660;</h2> 
     <div class='settings'>
-      <h4>Editor</h4>
+      <h4>Editor and Visual</h4>
       <div class="form-group row">
 	<div class="col-4"> 
 	  <input type="text" class="form-control" id="options-editor-input">
@@ -150,6 +154,39 @@
 	  </div>
 	</div>
       </div>
+      <h4>PAGER</h4>
+      <div class="form-group row">
+	<div class="col-4"> 
+	  <input type="text" class="form-control" id="options-editor-input">
+	</div>
+	<div class="btn-toolbar col-8" role="toolbar" aria-label="Toolbar with button groups">
+	  <div class="btn-group mr-2" role="group" aria-label="First group">
+	    <button type="button" class="btn btn-secondary" id="options-editor-none">None (emacs)(default)</button>
+	    <button type="button" class="btn btn-secondary" id="options-editor-vi">vi</button>
+	    <button type="button" class="btn btn-secondary" id="options-editor-vim">vim(recommended)</button>
+	    <button type="button" class="btn btn-secondary" id="options-editor-nano">nano</button>
+	  </div>
+	</div>
+      </div>
+      <h4>Auto Logout Timeout</h4>
+      <div class="input-group">
+	<input type="number" min="30" class="form-control" id="options-logout-timer" title="TODO">
+	<span class="input-group-btn">
+	  <button class="btn btn-info" type="button" id="options-logout-timer-example">Example</button>
+	</span>
+      </div>
+      <h4>Disable access to write to your terminal (TODO mesg n)</h4>
+      <div class="input-group">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-my-ip-checkbox">
+      </div>
+      <h4>Add IGNOREEOFIGNOREEOF </h4>
+      <div class="input-group">
+	<input type="number" min="0" max="5" class="form-control" id="options-logout-timer" title="TODO">
+	<span class="input-group-btn">
+	  <button class="btn btn-info" type="button" id="options-logout-timer-example">Example</button>
+	</span>
+      </div>
+
     </div>
   </div>
   <button type="button" class="btn btn-info btn-lg btn-block" id="generate-button">Generate bashrc</button>
