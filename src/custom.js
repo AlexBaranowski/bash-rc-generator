@@ -46,25 +46,58 @@ $( "#history-file-example" ).click(function() {
 $( "#generate-button" ).click(function() {
   website_string="# Generated with bash.rc generator: https://TODO"
   generated_results=[website_string]
-   
+  
+  // strings for toggles, easier to put the together then join
+  const str_hist_append="shopt -s histappend"
+  const str_shared_history=[str_hist_append, "export PROMPT_COMMAND=\"history -a; history -c; history -r; $PROMPT_COMMAND\""].join("\n")
+ 
+  // Each section has own string array.
   let hist_strings = []
   let alias_strings = []
-  let options_strings = []
-
+  let options_strings = [] 
+  // Get user inputs
   const histfilesize=$("#history-file-size-input").val()
   const histsize=$("#history-size-input").val()
-  // TODO all toogles for ignoredups etc
+  const histignore=$("#history-ignore-input").val()
+  const histcontrol=$("#history-histcontrol-input").val()
+  const histtimeformat=$("#history-time-format-input").val()//todo
+  const histfile=$("#history-file-input").val() //todo
+  const enable_history_shared=$('#history-shared-checkbox').prop('checked')//todo
+  const enable_history_appending=$('#history-append-checkbox').prop('checked')//todo
   
+  //debug 
+  // console.log("enable_history_appending - ", enable_history_appending)
+  // console.log("enable_history_shared - ", enable_history_shared)
+
+  // make proper bashrc entries 
   if (histfilesize){
     hist_strings.push("export HISTFILESIZE="+histfilesize)
   }
   if (histfilesize){
     hist_strings.push("export HISTSIZE="+histsize)
   }
+  if (histignore){
+    hist_strings.push("export HISTIGNORE=\""+histignore+"\"")
+  }
+  if (histcontrol){
+    hist_strings.push("export HISTCONTROL=\""+histcontrol+"\"")
+  }
+  if (histtimeformat){
+    hist_strings.push("export HISTTIMEFORMAT=\""+histtimeformat+"\"")
+  }
+  if (histfile){
+    hist_strings.push("export HISTFILE=\""+histfile+"\"")
+  }
+
+  if (enable_history_shared){
+    hist_strings.push(str_shared_history)
+  }else if (enable_history_appending){
+    hist_strings.push(str_hist_append)
+  }
 
   if (hist_strings.length !=0){
     generated_results.push("# History Settings\n")
     generated_results.push(hist_strings.join("\n"))
   }
-  ("#generated-bashrc").val(generated_results.join("\n"))
+  $("#generated-bashrc").val(generated_results.join("\n"))
 });
