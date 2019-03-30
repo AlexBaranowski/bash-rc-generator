@@ -41,15 +41,30 @@ $( "#history-time-format-example" ).click(function() {
 $( "#history-file-example" ).click(function() {
   $("#history-file-input").val("~/.my_bash_history")
 });
-// There should be smarter solution, but a) I don't want to learn js b) Most of js code is stackoverflowed
 
-/*function histctrl-toogles() {
-  console.log("Ala ma kota")
-    var clicked = $(this);
-  $('.histctrl-toogles').not(clicked).bootstrapToogle("off");
-};*/
-function histctrltoogles() {
-  console.log("Ala ma kota");
-  var clicked = $(this);
-  $('.histctrl-toogles').prop('checked', false).change();
-}
+// Generting the bashrc
+$( "#generate-button" ).click(function() {
+  website_string="# Generated with bash.rc generator: https://TODO"
+  generated_results=[website_string]
+   
+  let hist_strings = []
+  let alias_strings = []
+  let options_strings = []
+
+  const histfilesize=$("#history-file-size-input").val()
+  const histsize=$("#history-size-input").val()
+  // TODO all toogles for ignoredups etc
+  
+  if (histfilesize){
+    hist_strings.push("export HISTFILESIZE="+histfilesize)
+  }
+  if (histfilesize){
+    hist_strings.push("export HISTSIZE="+histsize)
+  }
+
+  if (hist_strings.length !=0){
+    generated_results.push("# History Settings\n")
+    generated_results.push(hist_strings.join("\n"))
+  }
+  ("#generated-bashrc").val(generated_results.join("\n"))
+});
