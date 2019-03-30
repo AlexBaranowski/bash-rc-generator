@@ -92,21 +92,64 @@
     </div>
     <h2>Aliases &#9660;</h2> 
     <div class='settings'>
-      <p>
-      sample text 
-      sample text 
-      sample text 
-      sample text 
-      </p>
+      <h4>Enable pushd, popd acting as cd</h4>
+      <div class="input-group">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-popd-pushd-checkbox">
+      </div>
+      <h4>Enable cd aliases</h4>
+      <div class="input-group">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-cd-checkbox">
+      </div>
+      <h4>Enable safer {rm,mv,cp,ln} command</h4>
+      <div class="input-group">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-safer-checkbox">
+      </div>
+      <h4>Enable sudo expanding aliases</h4>
+      <div class="input-group">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-sudo-checkbox">
+      </div>
+      <h4>Enable mkdir with parrent and verbose aliase</h4>
+      <div class="input-group">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-mkdir-checkbox">
+      </div>
+      <h4>Enable vi -> vim alias</h4>
+      <div class="input-group">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-vim-checkbox">
+      </div>
+      <h4>Enable colorized greps</h4>
+      <div class="input-group">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-greps-checkbox">
+      </div>
+      <h4>Enable colordiff alias (checks if colordiff is available)</h4>
+      <div class="input-group">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-colordiff-checkbox">
+      </div>
+      <h4>Enable now alias</h4>
+      <div class="input-group">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-now-checkbox">
+      </div>
+      <h4>Enable my_ip alias</h4>
+      <div class="input-group">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-my-ip-checkbox">
+      </div>
+
     </div>
     <h2>Options &#9660;</h2> 
     <div class='settings'>
-      <p>
-      sample text 
-      sample text 
-      sample text 
-      sample text 
-      </p>
+      <h4>Editor</h4>
+      <div class="form-group row">
+	<div class="col-4"> 
+	  <input type="text" class="form-control" id="options-editor-input">
+	</div>
+	<div class="btn-toolbar col-8" role="toolbar" aria-label="Toolbar with button groups">
+	  <div class="btn-group mr-2" role="group" aria-label="First group">
+	    <button type="button" class="btn btn-secondary" id="options-editor-none">None (emacs)(default)</button>
+	    <button type="button" class="btn btn-secondary" id="options-editor-vi">vi</button>
+	    <button type="button" class="btn btn-secondary" id="options-editor-vim">vim(recommended)</button>
+	    <button type="button" class="btn btn-secondary" id="options-editor-nano">nano</button>
+	  </div>
+	</div>
+      </div>
     </div>
   </div>
   <button type="button" class="btn btn-info btn-lg btn-block" id="generate-button">Generate bashrc</button>
