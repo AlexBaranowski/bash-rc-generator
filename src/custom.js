@@ -39,6 +39,41 @@ $( "#history-time-format-example" ).click(function() {
 $( "#history-file-example" ).click(function() {
   $("#history-file-input").val("~/.my_bash_history")
 });
+$( "#options-editor-none" ).click(function() {
+  $("#options-editor-input").val("")
+});
+$( "#options-editor-vi" ).click(function() {
+  $("#options-editor-input").val("vi")
+});
+$( "#options-editor-vim" ).click(function() {
+  $("#options-editor-input").val("vim")
+});
+$( "#options-editor-nano" ).click(function() {
+  $("#options-editor-input").val("nano")
+});
+$( "#options-pager-none" ).click(function() {
+  $("#options-pager-input").val("")
+});
+$( "#options-pager-less" ).click(function() {
+  $("#options-pager-input").val("less")
+});
+$( "#options-pager-most" ).click(function() {
+  $("#options-pager-input").val("most")
+});
+$( "#options-pager-most" ).click(function() {
+  $("#options-pager-input").val("most")
+});
+$( "#options-logout-timer-example" ).click(function() {
+  $("#options-logout-timer-input").val("3600")
+});
+$( "#options-logout-timer-example" ).click(function() {
+  $("#options-logout-timer-input").val("3600")
+});
+$( "#options-ignore-eofs-example" ).click(function() {
+  $("#options-ignore-eofs-input").val("2")
+});
+
+
 
 // Generting the bashrc
 $( "#generate-button" ).click(function() {
@@ -62,8 +97,11 @@ $( "#generate-button" ).click(function() {
   const str_alias_vim="alias vi=\"vim\""
   const str_alias_greps=["alias grep='grep --color=auto'", "alias egrep='egrep --color=auto'", "alias fgrep='fgrep --color=auto'"].join("\n")
   const str_alias_colordiff="hash colordiff &> /dev/null && alias diff='colordiff'"
+  const str_alias_pbcopy_pbpaste=["alias pbcopy=\"xclip -selection c\"", "alias pbpaste=\"xclip -selection clipboard -o\""].join("\n")
   const str_alias_now="alias now='date +\"%F-%T; %V week\"'"
   const str_alias_my_ip="alias my_ip='curl -s ifconfig.co/json | python3 -m json.tool'"
+  const str_option_checkwinsize="shopt -s checkwinsize"
+  const str_option_disable_messages="mesg n"
 
   // Each section has own string array.
   let hist_strings = []
@@ -78,25 +116,26 @@ $( "#generate-button" ).click(function() {
   const histfile=$("#history-file-input").val() 
   const enable_history_shared=$('#history-shared-checkbox').prop('checked')
   const enable_history_appending=$('#history-append-checkbox').prop('checked')
-  const enable_alias_super_pushd_popd=$('#alias-popd-pushd-checkbox').prop('checked')//todo
+  const enable_alias_super_pushd_popd=$('#alias-popd-pushd-checkbox').prop('checked')
   const enable_alias_cd=$('#alias-cd-checkbox').prop('checked')
-  const enable_safer_aliases=$('#alias-safer-checkbox').prop('checked') // todo
-  const enable_sudo_aliased=$('#alias-sudo-checkbox').prop('checked') // todo
-  const enable_alias_mkdir=$('#alias-mkdir-checkbox').prop('checked')// todo
-  const enable_alias_vim=$('#alias-vim-checkbox').prop('checked')// todo
-  const enable_alias_greps=$('#alias-greps-checkbox').prop('checked')// todo
-  const enable_alias_colordiff=$('#alias-colordiff-checkbox').prop('checked')// todo
-  const enable_alias_now=$('#alias-colordiff-checkbox').prop('checked')// todo
-  const enable_alias_my_ip=$('#alias-colordiff-checkbox').prop('checked')// todo
+  const enable_safer_aliases=$('#alias-safer-checkbox').prop('checked') 
+  const enable_sudo_aliased=$('#alias-sudo-checkbox').prop('checked') 
+  const enable_alias_mkdir=$('#alias-mkdir-checkbox').prop('checked')
+  const enable_alias_vim=$('#alias-vim-checkbox').prop('checked')
+  const enable_alias_greps=$('#alias-greps-checkbox').prop('checked')
+  const enable_alias_colordiff=$('#alias-colordiff-checkbox').prop('checked')
+  const enable_alias_copy_paste=$('#alias-copy-and-paste-checkbox').prop('checked')
+  const enable_alias_now=$('#alias-now-checkbox').prop('checked')
+  const enable_alias_my_ip=$('#alias-my-ip-checkbox').prop('checked')
   
-  const option_timeout=$("#").val()//todo
-  const option_editor=$("#history-file-input").val() // todo
-  
-  //debug 
-  // console.log("enable_history_appending - ", enable_history_appending)
-  // console.log("enable_history_shared - ", enable_history_shared)
-  // make proper bashrc entries 
-  // history
+  const option_editor=$("#options-editor-input").val() //todo
+  const option_pager=$("#options-pager-input").val() //todo
+  const option_auto_logout=$("#options-logout-timer-input").val() // todo
+  const option_disable_messages=$("#options-mesg-n-checkbox").prop('checked') // todo
+  const option_checkwinsize=$("#options-checkwinsize-checkbox").prop('checked')  // todo
+  const option_ignore_eofs=$("#options-ignore-eofs-input").val() //todo
+
+
   if (histfilesize){
     hist_strings.push("export HISTFILESIZE="+histfilesize)
   }
@@ -144,7 +183,10 @@ $( "#generate-button" ).click(function() {
     alias_strings.push(str_alias_greps)
   }
   if (enable_alias_colordiff){
-    alias_strings.push(str_alias_greps)
+    alias_strings.push(str_alias_colordiff)
+  }
+  if (enable_alias_copy_paste){
+    alias_strings.push(str_alias_pbcopy_pbpaste)
   }
   if (enable_alias_now){
     alias_strings.push(str_alias_now)
@@ -152,8 +194,26 @@ $( "#generate-button" ).click(function() {
   if (enable_alias_my_ip){
     alias_strings.push(str_alias_my_ip)
   }
-  
-  
+  if (option_editor){
+    options_strings.push("export EDITOR=\""+option_editor+"\"")
+    options_strings.push("export VISUAL=\""+option_editor+"\"")
+  }
+  if (option_pager){
+    options_strings.push("export PAGER=\""+option_pager+"\"")
+  }
+  if (option_auto_logout){
+    options_strings.push("export TMOUT=\""+option_auto_logout+"\"")
+  }
+  if(option_disable_messages){
+    options_strings.push(str_option_disable_messages)
+  }
+  if(option_checkwinsize){
+    options_strings.push(str_option_checkwinsize)
+  }
+  if(option_ignore_eofs){
+    options_strings.push("export IGNOREEOF="+option_ignore_eofs)
+  }
+
   if (hist_strings.length !=0){
     generated_results.push("# History Settings\n")
     generated_results.push(hist_strings.join("\n"))

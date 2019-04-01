@@ -124,7 +124,7 @@
       <div class="input-group">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-colordiff-checkbox">
       </div>
-      <h4>Enable copying to pbcopy and pbpaste aliases TODO</h4>
+      <h4>Enable pbcopy, and pbpaste aliases TODO requires xclip</h4>
       <div class="input-group">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-copy-and-paste-checkbox">
       </div>
@@ -157,33 +157,36 @@
       <h4>PAGER</h4>
       <div class="form-group row">
 	<div class="col-4"> 
-	  <input type="text" class="form-control" id="options-editor-input">
+	  <input type="text" class="form-control" id="options-pager-input">
 	</div>
 	<div class="btn-toolbar col-8" role="toolbar" aria-label="Toolbar with button groups">
 	  <div class="btn-group mr-2" role="group" aria-label="First group">
-	    <button type="button" class="btn btn-secondary" id="options-editor-none">None (emacs)(default)</button>
-	    <button type="button" class="btn btn-secondary" id="options-editor-vi">vi</button>
-	    <button type="button" class="btn btn-secondary" id="options-editor-vim">vim(recommended)</button>
-	    <button type="button" class="btn btn-secondary" id="options-editor-nano">nano</button>
+	    <button type="button" class="btn btn-secondary" id="options-pager-none">None (more)(default)</button>
+	    <button type="button" class="btn btn-secondary" id="options-pager-less">less</button>
+	    <button type="button" class="btn btn-secondary" id="options-pager-most">most</button>
 	  </div>
 	</div>
       </div>
       <h4>Auto Logout Timeout</h4>
       <div class="input-group">
-	<input type="number" min="30" class="form-control" id="options-logout-timer" title="TODO">
+	<input type="number" min="30" class="form-control" id="options-logout-timer-input" title="TODO">
 	<span class="input-group-btn">
 	  <button class="btn btn-info" type="button" id="options-logout-timer-example">Example</button>
 	</span>
       </div>
       <h4>Disable access to write to your terminal (TODO mesg n)</h4>
       <div class="input-group">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-my-ip-checkbox">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="options-mesg-n-checkbox">
+      </div>
+      <h4>Make sure that checkwinsize is enabled</h4>
+      <div class="input-group">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="options-checkwinsize-checkbox">
       </div>
       <h4>Add IGNOREEOFIGNOREEOF </h4>
       <div class="input-group">
-	<input type="number" min="0" max="5" class="form-control" id="options-logout-timer" title="TODO">
+	<input type="number" min="0" max="5" class="form-control" id="options-ignore-eofs-input" title="TODO">
 	<span class="input-group-btn">
-	  <button class="btn btn-info" type="button" id="options-logout-timer-example">Example</button>
+	  <button class="btn btn-info" type="button" id="options-ignore-eofs-example">Example</button>
 	</span>
       </div>
 
