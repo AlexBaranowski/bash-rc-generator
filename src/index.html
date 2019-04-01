@@ -24,116 +24,125 @@
   <div id="accordion">
     <h2>History config &#9660;</h2> 
     <div class='settings'>
-      <div class="form-group">
 
-	<h4 for="history-file-size" >HISTFILESIZE</h4>
-	<div class="input-group">
+      <h4 for="history-file-size" >HISTFILESIZE</h4>
+      <div class="form-group row">
+	<div class="col-8"> 
 	  <input type="number" min="0" class="form-control" id="history-file-size-input">
-	  <span class="input-group-btn">
-	    <button class="btn btn-info" type="button" id="history-file-size-example">Example</button>
-	  </span>
 	</div>
+	<div class="col-4"> 
+	  <button class="btn btn-info" type="button" id="history-file-size-example">Example</button>
+	</div>
+      </div>
 
-	<h4 for="history-size" >HISTSIZE</h4>
-	<div class="input-group">
+      <h4 for="history-size" >HISTSIZE</h4>
+      <div class="form-group row">
+	<div class="col-8"> 
 	  <input type="number" min="0" class="form-control" id="history-size-input">
-	  <span class="input-group-btn">
-	    <button class="btn btn-info" type="button" id="history-size-example">Example</button>
-	  </span>
 	</div>
+	<div class="col-4">
+	  <button class="btn btn-info" type="button" id="history-size-example">Example</button>
+	</div>
+      </div>
 
-	<h4 for="history-time-format" >HISTIGNORE</h4>
-	<div class="input-group">
+      <h4 for="history-time-format" >HISTIGNORE</h4>
+      <div class="form-group row">
+	<div class="col-8">
 	  <input type="text" class="form-control" id="history-ignore-input">
-	  <span class="input-group-btn">
-	    <button class="btn btn-info" type="button" id="history-ignore-example">Example</button>
-	  </span>
 	</div>
-	<h4>HISTCONTROL</h4>
-	<div class="form-group row">
-	  <div class="col-4"> 
-	    <input type="text" class="form-control" id="history-histcontrol-input">
-	  </div>
-	  <div class="btn-toolbar col-8" role="toolbar" aria-label="Toolbar with button groups">
-	    <div class="btn-group mr-2" role="group" aria-label="First group">
-	      <button type="button" class="btn btn-secondary" id="history-histcontrol-example-none">None</button>
-	      <button type="button" class="btn btn-secondary" id="history-histcontrol-example-ignoreboth">ignoreboth (recommended)</button>
-	      <button type="button" class="btn btn-secondary" id="history-histcontrol-example-ignorespace">ignorespace</button>
-	      <button type="button" class="btn btn-secondary" id="history-histcontrol-example-ignoredups">ignoredups</button>
-	      <button type="button" class="btn btn-secondary" id="history-histcontrol-example-erasedups">erasedups</button>
-	    </div>
+	<div class="col-4">
+	  <button class="btn btn-info" type="button" id="history-ignore-example">Example</button>
+	</div>
+      </div>
+      <h4>HISTCONTROL</h4>
+      <div class="form-group row">
+	<div class="col-3"> 
+	  <input type="text" class="form-control" id="history-histcontrol-input">
+	</div>
+	<div class="btn-toolbar col-9" role="toolbar" aria-label="Toolbar with button groups">
+	  <div class="btn-group mr-2" role="group" aria-label="First group">
+	    <button type="button" class="btn btn-secondary" id="history-histcontrol-example-none">None</button>
+	    <button type="button" class="btn btn-secondary" id="history-histcontrol-example-ignoreboth">ignoreboth</button>
+	    <button type="button" class="btn btn-secondary" id="history-histcontrol-example-ignorespace">ignorespace</button>
+	    <button type="button" class="btn btn-secondary" id="history-histcontrol-example-ignoredups">ignoredups</button>
+	    <button type="button" class="btn btn-secondary" id="history-histcontrol-example-erasedups">erasedups</button>
 	  </div>
 	</div>
+      </div>
 
-	<h4 for="history-time-format" >HISTTIMEFORMAT</h4>
-	<div class="input-group">
+      <h4 for="history-time-format" >HISTTIMEFORMAT</h4>
+      <div class="form-group row">
+	<div class="col-8">
 	  <input type="text" class="form-control" id="history-time-format-input" pattern=".* " title="HISTTIMEFORMAT should ends with space">
-	  <span class="input-group-btn">
-	    <button class="btn btn-info" type="button" id="history-time-format-example">Example</button>
-	  </span>
 	</div>
+	<div class="col-4">
+	  <button class="btn btn-info" type="button" id="history-time-format-example">Example</button>
+	</div>
+      </div>
 
-	<h4 for="history-file-input" >HISTFILE</h4>
-	<div class="input-group">
+      <h4 for="history-file-input" >HISTFILE</h4>
+      <div class="form-group row">
+	<div class="col-8">
 	  <input type="text" class="form-control" id="history-file-input">
-	  <span class="input-group-btn">
-	    <button class="btn btn-info" type="button" id="history-file-example">Example</button>
-	  </span>
+
 	</div>
-	<h4>Enable appending to history</h4>
-	<div class="input-group">
-	  <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="history-append-checkbox">
+	<div class="col-4">
+	  <button class="btn btn-info" type="button" id="history-file-example">Example</button>
 	</div>
-	<h4>Enable shared history</h4>
-	<div class="input-group">
-	  <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="history-shared-checkbox">
-	</div>
+      </div>
+      <h4>Enable appending to history</h4>
+      <div class="form-group row col-4">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="history-append-checkbox">
+      </div>
+      <h4>Enable shared history</h4>
+      <div class="form-group row col-4">
+	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="history-shared-checkbox">
       </div>
     </div>
     <h2>Aliases &#9660;</h2> 
     <div class='settings'>
       <h4>Enable pushd, popd acting as cd</h4>
-      <div class="input-group">
+      <div class="form-group row col-4">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-popd-pushd-checkbox">
       </div>
       <h4>Enable cd aliases</h4>
-      <div class="input-group">
+      <div class="form-group row col-4">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-cd-checkbox">
       </div>
       <h4>Enable safer {rm,mv,cp,ln} command</h4>
-      <div class="input-group">
+      <div class="form-group row col-4">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-safer-checkbox">
       </div>
       <h4>Enable sudo expanding aliases</h4>
-      <div class="input-group">
+      <div class="form-group row col-4">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-sudo-checkbox">
       </div>
       <h4>Enable mkdir with parrent and verbose aliase</h4>
-      <div class="input-group">
+      <div class="form-group row col-4">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-mkdir-checkbox">
       </div>
       <h4>Enable vi -> vim alias</h4>
-      <div class="input-group">
+      <div class="form-group row col-4">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-vim-checkbox">
       </div>
       <h4>Enable colorized greps</h4>
-      <div class="input-group">
+      <div class="form-group row col-4">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-greps-checkbox">
       </div>
       <h4>Enable colordiff alias (checks if colordiff is available)</h4>
-      <div class="input-group">
+      <div class="form-group row col-4">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-colordiff-checkbox">
       </div>
       <h4>Enable pbcopy, and pbpaste aliases TODO requires xclip</h4>
-      <div class="input-group">
+      <div class="form-group row col-4">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-copy-and-paste-checkbox">
       </div>
       <h4>Enable now alias</h4>
-      <div class="input-group">
+      <div class="form-group row col-4">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-now-checkbox">
       </div>
       <h4>Enable my_ip alias</h4>
-      <div class="input-group">
+      <div class="form-group row col-4">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-my-ip-checkbox">
       </div>
 
@@ -168,26 +177,30 @@
 	</div>
       </div>
       <h4>Auto Logout Timeout</h4>
-      <div class="input-group">
+      <div class="form-group row">
+	<div class="col-8"> 
 	<input type="number" min="30" class="form-control" id="options-logout-timer-input" title="TODO">
-	<span class="input-group-btn">
+	</div>
+	<div class="col-4">
 	  <button class="btn btn-info" type="button" id="options-logout-timer-example">Example</button>
-	</span>
+	</div>
       </div>
       <h4>Disable access to write to your terminal (TODO mesg n)</h4>
-      <div class="input-group">
+      <div class="form-group row col-4">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="options-mesg-n-checkbox">
       </div>
       <h4>Make sure that checkwinsize is enabled</h4>
-      <div class="input-group">
+      <div class="form-group row col-4">
 	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="options-checkwinsize-checkbox">
       </div>
       <h4>Add IGNOREEOFIGNOREEOF </h4>
-      <div class="input-group">
+      <div class="form-group row">
+	<div class="col-8"> 
 	<input type="number" min="0" max="5" class="form-control" id="options-ignore-eofs-input" title="TODO">
-	<span class="input-group-btn">
+	</div>
+	<div class="col-4"> 
 	  <button class="btn btn-info" type="button" id="options-ignore-eofs-example">Example</button>
-	</span>
+	</div>
       </div>
 
     </div>
