@@ -1,10 +1,16 @@
 /* 
- * https://www.color-hex.com/color-palette/61235
+ * Colors are taken from bootstrap.
+ * Check https://pikock.github.io/bootstrap-magic/
  */
 body{
-  background-color: #091833;
-  color: #0abdc6;
+  background-color: #343a40;
   font-family:courier new,Courier,monospace;
+  color: #2dc04e;
+}
+
+.jumbotron{
+  color:#ffc107;
+  background-color:#495057;
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -14,14 +20,15 @@ h1,h2,h3,h4,h5,h6{
 
 
 .footer {
-  background-color: #133e7c;
-  color: #ea00d9;
+  background-color:#212529;
+  color:#17a2b8;
 }
 .footer a:active{
-  color: #133e7c;
+  color: #105261;
 }
 
 .copyleft {
   display:inline-block;
   transform: rotate(180deg);
 }
+

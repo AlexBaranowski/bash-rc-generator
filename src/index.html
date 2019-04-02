@@ -1,223 +1,228 @@
 <!doctype html>
 <html lang="en" class="h-100">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="Alex Baranowski">
-<title>Bashrc generator</title>
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<!-- Bootrap toggle -->
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<!-- Font awesome for Amazon-->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/brands.css" integrity="sha384-n9+6/aSqa9lBidZMRCQHTHKJscPq6NW4pCQBiMmHdUCvPN8ZOg2zJJTkC7WIezWv" crossorigin="anonymous">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css" integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
-<!-- Local css -->
-<link rel="stylesheet" href="./customstyle.css" >
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<meta name="description" content="">-->
+    <meta name="author" content="Alex Baranowski">
+    <title>.bashrc generator</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Bootrap toggle -->
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <!-- Font awesome for Amazon and help FIXME add help messages, with some magic ?alerts?-->
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">-->
+    <!-- Local css -->
+    <link rel="stylesheet" href="./customstyle.css" >
 
 </head>
 <body class="d-flex flex-column h-100">
 <a href="https://github.com/AlexBaranowski/bash-rc-generator" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 <div class="container">
-  <header> <h1>Welcome to bashrc generator!</h1> </header>
-  <div id="accordion">
-    <h2>History config &#9660;</h2> 
-    <div class='settings'>
-
-      <h4 for="history-file-size" >HISTFILESIZE</h4>
-      <div class="form-group row">
-	<div class="col-8"> 
-	  <input type="number" min="0" class="form-control" id="history-file-size-input">
-	</div>
-	<div class="col-4"> 
-	  <button class="btn btn-info" type="button" id="history-file-size-example">Example</button>
-	</div>
-      </div>
-
-      <h4 for="history-size" >HISTSIZE</h4>
-      <div class="form-group row">
-	<div class="col-8"> 
-	  <input type="number" min="0" class="form-control" id="history-size-input">
-	</div>
-	<div class="col-4">
-	  <button class="btn btn-info" type="button" id="history-size-example">Example</button>
-	</div>
-      </div>
-
-      <h4 for="history-time-format" >HISTIGNORE</h4>
-      <div class="form-group row">
-	<div class="col-8">
-	  <input type="text" class="form-control" id="history-ignore-input">
-	</div>
-	<div class="col-4">
-	  <button class="btn btn-info" type="button" id="history-ignore-example">Example</button>
-	</div>
-      </div>
-      <h4>HISTCONTROL</h4>
-      <div class="form-group row">
-	<div class="col-3"> 
-	  <input type="text" class="form-control" id="history-histcontrol-input">
-	</div>
-	<div class="btn-toolbar col-9" role="toolbar" aria-label="Toolbar with button groups">
-	  <div class="btn-group mr-2" role="group" aria-label="First group">
-	    <button type="button" class="btn btn-secondary" id="history-histcontrol-example-none">None</button>
-	    <button type="button" class="btn btn-secondary" id="history-histcontrol-example-ignoreboth">ignoreboth</button>
-	    <button type="button" class="btn btn-secondary" id="history-histcontrol-example-ignorespace">ignorespace</button>
-	    <button type="button" class="btn btn-secondary" id="history-histcontrol-example-ignoredups">ignoredups</button>
-	    <button type="button" class="btn btn-secondary" id="history-histcontrol-example-erasedups">erasedups</button>
-	  </div>
-	</div>
-      </div>
-
-      <h4 for="history-time-format" >HISTTIMEFORMAT</h4>
-      <div class="form-group row">
-	<div class="col-8">
-	  <input type="text" class="form-control" id="history-time-format-input" pattern=".* " title="HISTTIMEFORMAT should ends with space">
-	</div>
-	<div class="col-4">
-	  <button class="btn btn-info" type="button" id="history-time-format-example">Example</button>
-	</div>
-      </div>
-
-      <h4 for="history-file-input" >HISTFILE</h4>
-      <div class="form-group row">
-	<div class="col-8">
-	  <input type="text" class="form-control" id="history-file-input">
-
-	</div>
-	<div class="col-4">
-	  <button class="btn btn-info" type="button" id="history-file-example">Example</button>
-	</div>
-      </div>
-      <h4>Enable appending to history</h4>
-      <div class="form-group row col-4">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="history-append-checkbox">
-      </div>
-      <h4>Enable shared history</h4>
-      <div class="form-group row col-4">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="history-shared-checkbox">
-      </div>
-    </div>
-    <h2>Aliases &#9660;</h2> 
-    <div class='settings'>
-      <h4>Enable pushd, popd acting as cd</h4>
-      <div class="form-group row col-4">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-popd-pushd-checkbox">
-      </div>
-      <h4>Enable cd aliases</h4>
-      <div class="form-group row col-4">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-cd-checkbox">
-      </div>
-      <h4>Enable safer {rm,mv,cp,ln} command</h4>
-      <div class="form-group row col-4">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-safer-checkbox">
-      </div>
-      <h4>Enable sudo expanding aliases</h4>
-      <div class="form-group row col-4">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-sudo-checkbox">
-      </div>
-      <h4>Enable mkdir with parrent and verbose aliase</h4>
-      <div class="form-group row col-4">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-mkdir-checkbox">
-      </div>
-      <h4>Enable vi -> vim alias</h4>
-      <div class="form-group row col-4">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-vim-checkbox">
-      </div>
-      <h4>Enable colorized greps</h4>
-      <div class="form-group row col-4">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-greps-checkbox">
-      </div>
-      <h4>Enable colordiff alias (checks if colordiff is available)</h4>
-      <div class="form-group row col-4">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-colordiff-checkbox">
-      </div>
-      <h4>Enable pbcopy, and pbpaste aliases TODO requires xclip</h4>
-      <div class="form-group row col-4">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-copy-and-paste-checkbox">
-      </div>
-      <h4>Enable now alias</h4>
-      <div class="form-group row col-4">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-now-checkbox">
-      </div>
-      <h4>Enable my_ip alias</h4>
-      <div class="form-group row col-4">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="alias-my-ip-checkbox">
-      </div>
+    <div class="jumbotron">
+        <h1>Welcome to .bashrc generator!</h1>
+        <p>Advanced Bash configuration made eazy.</p>
 
     </div>
-    <h2>Options &#9660;</h2> 
-    <div class='settings'>
-      <h4>Editor and Visual</h4>
-      <div class="form-group row">
-	<div class="col-4"> 
-	  <input type="text" class="form-control" id="options-editor-input">
-	</div>
-	<div class="btn-toolbar col-8" role="toolbar" aria-label="Toolbar with button groups">
-	  <div class="btn-group mr-2" role="group" aria-label="First group">
-	    <button type="button" class="btn btn-secondary" id="options-editor-none">None (emacs)(default)</button>
-	    <button type="button" class="btn btn-secondary" id="options-editor-vi">vi</button>
-	    <button type="button" class="btn btn-secondary" id="options-editor-vim">vim(recommended)</button>
-	    <button type="button" class="btn btn-secondary" id="options-editor-nano">nano</button>
-	  </div>
-	</div>
-      </div>
-      <h4>PAGER</h4>
-      <div class="form-group row">
-	<div class="col-4"> 
-	  <input type="text" class="form-control" id="options-pager-input">
-	</div>
-	<div class="btn-toolbar col-8" role="toolbar" aria-label="Toolbar with button groups">
-	  <div class="btn-group mr-2" role="group" aria-label="First group">
-	    <button type="button" class="btn btn-secondary" id="options-pager-none">None (more)(default)</button>
-	    <button type="button" class="btn btn-secondary" id="options-pager-less">less</button>
-	    <button type="button" class="btn btn-secondary" id="options-pager-most">most</button>
-	  </div>
-	</div>
-      </div>
-      <h4>Auto Logout Timeout</h4>
-      <div class="form-group row">
-	<div class="col-8"> 
-	<input type="number" min="30" class="form-control" id="options-logout-timer-input" title="TODO">
-	</div>
-	<div class="col-4">
-	  <button class="btn btn-info" type="button" id="options-logout-timer-example">Example</button>
-	</div>
-      </div>
-      <h4>Disable access to write to your terminal (TODO mesg n)</h4>
-      <div class="form-group row col-4">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="options-mesg-n-checkbox">
-      </div>
-      <h4>Make sure that checkwinsize is enabled</h4>
-      <div class="form-group row col-4">
-	<input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="info" type="checkbox" id="options-checkwinsize-checkbox">
-      </div>
-      <h4>Add IGNOREEOFIGNOREEOF </h4>
-      <div class="form-group row">
-	<div class="col-8"> 
-	<input type="number" min="0" max="5" class="form-control" id="options-ignore-eofs-input" title="TODO">
-	</div>
-	<div class="col-4"> 
-	  <button class="btn btn-info" type="button" id="options-ignore-eofs-example">Example</button>
-	</div>
-      </div>
+    <div id="accordion">
+        <h2>History config &#9660;</h2>
+        <div class='settings'>
 
+
+
+            <h4 for="history-file-size" >HISTFILESIZE </h4>
+            <div class="form-group row">
+                <div class="col-8">
+                    <input type="number" min="0" class="form-control" id="history-file-size-input">
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-info" type="button" id="history-file-size-example">Example</button>
+                </div>
+            </div>
+
+            <h4 for="history-size" >HISTSIZE</h4>
+            <div class="form-group row">
+                <div class="col-8">
+                    <input type="number" min="0" class="form-control" id="history-size-input">
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-info" type="button" id="history-size-example">Example</button>
+                </div>
+            </div>
+
+            <h4 for="history-time-format" >HISTIGNORE</h4>
+            <div class="form-group row">
+                <div class="col-8">
+                    <input type="text" class="form-control" id="history-ignore-input">
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-info" type="button" id="history-ignore-example">Example</button>
+                </div>
+            </div>
+            <h4>HISTCONTROL</h4>
+            <div class="form-group row">
+                <div class="col-3">
+                    <input type="text" class="form-control" id="history-histcontrol-input">
+                </div>
+                <div class="btn-toolbar col-9" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                        <button type="button" class="btn btn-secondary" id="history-histcontrol-example-none">None</button>
+                        <button type="button" class="btn btn-secondary" id="history-histcontrol-example-ignoreboth">ignoreboth</button>
+                        <button type="button" class="btn btn-secondary" id="history-histcontrol-example-ignorespace">ignorespace</button>
+                        <button type="button" class="btn btn-secondary" id="history-histcontrol-example-ignoredups">ignoredups</button>
+                        <button type="button" class="btn btn-secondary" id="history-histcontrol-example-erasedups">erasedups</button>
+                    </div>
+                </div>
+            </div>
+
+            <h4 for="history-time-format" >HISTTIMEFORMAT</h4>
+            <div class="form-group row">
+                <div class="col-8">
+                    <input type="text" class="form-control" id="history-time-format-input" pattern=".* " title="HISTTIMEFORMAT should ends with space">
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-info" type="button" id="history-time-format-example">Example</button>
+                </div>
+            </div>
+
+            <h4 for="history-file-input" >HISTFILE</h4>
+            <div class="form-group row">
+                <div class="col-8">
+                    <input type="text" class="form-control" id="history-file-input">
+
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-info" type="button" id="history-file-example">Example</button>
+                </div>
+            </div>
+            <h4>Enable appending to history</h4>
+            <div class="form-group row col-4">
+                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="history-append-checkbox">
+            </div>
+            <h4>Enable shared history</h4>
+            <div class="form-group row col-4">
+                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="history-shared-checkbox">
+            </div>
+        </div>
+        <h2>Aliases &#9660;</h2>
+        <div class='settings'>
+            <h4>Enable pushd, popd acting as cd</h4>
+            <div class="form-group row col-4">
+                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-popd-pushd-checkbox">
+            </div>
+            <h4>Enable cd aliases</h4>
+            <div class="form-group row col-4">
+                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-cd-checkbox">
+            </div>
+            <h4>Enable safer {rm,mv,cp,ln} command</h4>
+            <div class="form-group row col-4">
+                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-safer-checkbox">
+            </div>
+            <h4>Enable sudo expanding aliases</h4>
+            <div class="form-group row col-4">
+                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-sudo-checkbox">
+            </div>
+            <h4>Enable mkdir with parrent and verbose aliase</h4>
+            <div class="form-group row col-4">
+                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-mkdir-checkbox">
+            </div>
+            <h4>Enable vi -> vim alias</h4>
+            <div class="form-group row col-4">
+                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-vim-checkbox">
+            </div>
+            <h4>Enable colorized greps</h4>
+            <div class="form-group row col-4">
+                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-greps-checkbox">
+            </div>
+            <h4>Enable diff->colordiff alias</h4>
+            <div class="form-group row col-4">
+                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-colordiff-checkbox">
+            </div>
+            <h4>Enable pbcopy pbpaste (requires xclip)</h4>
+            <div class="form-group row col-4">
+                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-copy-and-paste-checkbox">
+            </div>
+            <h4>Enable now alias</h4>
+            <div class="form-group row col-4">
+                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-now-checkbox">
+            </div>
+            <h4>Enable my_ip alias</h4>
+            <div class="form-group row col-4">
+                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-my-ip-checkbox">
+            </div>
+
+        </div>
+        <h2>Options &#9660;</h2>
+        <div class='settings'>
+            <h4>EDITOR and VISUAL</h4>
+            <div class="form-group row">
+                <div class="col-4">
+                    <input type="text" class="form-control" id="options-editor-input">
+                </div>
+                <div class="btn-toolbar col-8" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                        <button type="button" class="btn btn-secondary" id="options-editor-none">None (emacs)(default)</button>
+                        <button type="button" class="btn btn-secondary" id="options-editor-vi">vi</button>
+                        <button type="button" class="btn btn-secondary" id="options-editor-vim">vim(recommended)</button>
+                        <button type="button" class="btn btn-secondary" id="options-editor-nano">nano</button>
+                    </div>
+                </div>
+            </div>
+            <h4>PAGER</h4>
+            <div class="form-group row">
+                <div class="col-4">
+                    <input type="text" class="form-control" id="options-pager-input">
+                </div>
+                <div class="btn-toolbar col-8" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                        <button type="button" class="btn btn-secondary" id="options-pager-none">None (more)(default)</button>
+                        <button type="button" class="btn btn-secondary" id="options-pager-less">less</button>
+                        <button type="button" class="btn btn-secondary" id="options-pager-most">most</button>
+                    </div>
+                </div>
+            </div>
+            <h4>Auto Logout Timeout</h4>
+            <div class="form-group row">
+                <div class="col-8">
+                    <input type="number" min="30" class="form-control" id="options-logout-timer-input" title="TODO">
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-info" type="button" id="options-logout-timer-example">Example</button>
+                </div>
+            </div>
+            <h4>Disable access to write to your terminal</h4>
+            <div class="form-group row col-4">
+                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="options-mesg-n-checkbox">
+            </div>
+            <h4>Make sure that checkwinsize is enabled</h4>
+            <div class="form-group row col-4">
+                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="options-checkwinsize-checkbox">
+            </div>
+            <h4>Add IGNOREEOFIGNOREEOF </h4>
+            <div class="form-group row">
+                <div class="col-8">
+                    <input type="number" min="0" max="5" class="form-control" id="options-ignore-eofs-input" title="TODO">
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-info" type="button" id="options-ignore-eofs-example">Example</button>
+                </div>
+            </div>
+
+        </div>
     </div>
-  </div>
-  <button type="button" class="btn btn-info btn-lg btn-block" id="generate-button">Generate bashrc</button>
-  <div class="form-group">
-    <h2>Generated bashrc</h2>
-    <textarea class="form-control" rows="14" id="generated-bashrc"></textarea>
-  </div> 
+    <button type="button" class="btn btn-outline-success btn-lg btn-block mt-3" id="generate-button">Generate bashrc</button>
+    <div class="form-group">
+        <h2 class="mt-3">Generated bashrc</h2>
+        <textarea class="form-control mt-3" rows="14" id="generated-bashrc"></textarea>
+    </div>
 </div>
 
 <footer class="footer mt-auto py-3">
-  <div class="container">
-    Made With Love by: <a href="https://entite.me">Alex Baranowski</a>, Copyleft – all rights reversed <span class="copyleft">&copy;</span>| 
-    <span class="float-right">Bash Bushido book: 
+    <div class="container">
+        Made With Love by: <a href="https://entite.me">Alex Baranowski</a>, Copyleft – all rights reversed
+        <span class="float-right">Bash Bushido book:
     </span>
-  </div>
+    </div>
 </footer>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -226,4 +231,3 @@
 
 </body>
 </html>
-
