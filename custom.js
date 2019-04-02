@@ -80,7 +80,7 @@ $("#generate-button").click(function () {
     // TODO use simple struct to connect -> (check_function(or value), && text) then loop through it,
     // Right now everything is checked with shitload of ifs, this soluion has same level of clarity but code is more compacted
 
-    website_string = "# Generated with bash.rc generator: https://TODO"
+    website_string = "# Generated with bash.rc generator: https://alexbaranowski.github.io/bash-rc-generator/"
     generated_results = [website_string]
 
     // strings for toggles, easier to put the together then join
