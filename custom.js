@@ -77,7 +77,7 @@ $("#options-ignore-eofs-example").click(function () {
 // Generting the bashrc
 $("#generate-button").click(function () {
     
-    website_string = "# Generated with bash.rc generator: https://alexbaranowski.github.io/bash-rc-generator/"
+    website_string = "# Generated with bashrc generator: https://alexbaranowski.github.io/bash-rc-generator/"
     generated_results = [website_string]
 
     // strings for toggles, easier to put the together, then join
