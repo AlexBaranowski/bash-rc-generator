@@ -1,11 +1,10 @@
 /* 
  * Please note that I'm not frontend developer. This code might be dead simple and verbose.
- * If you think that there is room for improvement - pull request are open ;).
+ * If you think that there is room for improvement, well pull request are open ;).
 */
 
 $(function () {
     $("#accordion").accordion()
-    //turnoff toggles - smarter way,
     $('input[type=checkbox]').bootstrapToggle('off')
 });
 // History
@@ -15,7 +14,6 @@ $("#history-file-size-example").click(function () {
 $("#history-size-example").click(function () {
     $("#history-size-input").val("2000")
 });
-// There might be smarter way to set this with name of id, but 
 $("#history-histcontrol-example-none").click(function () {
     $("#history-histcontrol-input").val("")
 });
@@ -40,6 +38,7 @@ $("#history-time-format-example").click(function () {
 $("#history-file-example").click(function () {
     $("#history-file-input").val("~/.my_bash_history")
 });
+//Extra options
 $("#options-editor-none").click(function () {
     $("#options-editor-input").val("")
 });
@@ -77,13 +76,11 @@ $("#options-ignore-eofs-example").click(function () {
 
 // Generting the bashrc
 $("#generate-button").click(function () {
-    // TODO use simple struct to connect -> (check_function(or value), && text) then loop through it,
-    // Right now everything is checked with shitload of ifs, this soluion has same level of clarity but code is more compacted
-
+    
     website_string = "# Generated with bash.rc generator: https://alexbaranowski.github.io/bash-rc-generator/"
     generated_results = [website_string]
 
-    // strings for toggles, easier to put the together then join
+    // strings for toggles, easier to put the together, then join
     const str_hist_append = "shopt -s histappend"
     const str_shared_history = [str_hist_append, "export PROMPT_COMMAND=\"history -a; history -c; history -r; $PROMPT_COMMAND\""].join("\n")
     const str_super_pushd_popd = ["alias cd=\"pushd\"", "alias back=\"popd\"", "popd()", "{", "  builtin popd > /dev/null", "}", "pushd()",

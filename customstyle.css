@@ -18,7 +18,6 @@ h1,h2,h3,h4,h5,h6{
   font-weight:700;
 }
 
-
 .footer {
   background-color:#212529;
   color:#17a2b8;
@@ -26,9 +25,3 @@ h1,h2,h3,h4,h5,h6{
 .footer a:active{
   color: #105261;
 }
-
-.copyleft {
-  display:inline-block;
-  transform: rotate(180deg);
-}
-
