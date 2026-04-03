@@ -65,6 +65,21 @@ const persistableFields = [
     { id: 'alias-my-ip-checkbox',            type: 'checked' },
     { id: 'options-mesg-n-checkbox',         type: 'checked' },
     { id: 'options-checkwinsize-checkbox',   type: 'checked' },
+    // prompt builder
+    { id: 'prompt-username-checkbox',        type: 'checked' },
+    { id: 'prompt-hostname-checkbox',        type: 'checked' },
+    { id: 'prompt-directory-checkbox',       type: 'checked' },
+    { id: 'prompt-exitcode-checkbox',        type: 'checked' },
+    { id: 'prompt-time-checkbox',            type: 'checked' },
+    { id: 'prompt-symbol-root-checkbox',     type: 'checked' },
+    { id: 'prompt-newline-checkbox',         type: 'checked' },
+    { id: 'prompt-time-format',              type: 'value'   },
+    { id: 'prompt-symbol-input',             type: 'value'   },
+    { id: 'prompt-color-username',           type: 'value'   },
+    { id: 'prompt-color-hostname',           type: 'value'   },
+    { id: 'prompt-color-directory',          type: 'value'   },
+    { id: 'prompt-separator-main',           type: 'value'   },
+    { id: 'prompt-separator-path',           type: 'value'   },
 ];
 
 function saveState() {
@@ -72,6 +87,9 @@ function saveState() {
     persistableFields.forEach(({ id, type }) => {
         state[id] = type === 'checked' ? el(id).checked : el(id).value;
     });
+    // Save radio button states
+    state['hostname-type'] = document.querySelector('input[name="hostname-type"]:checked')?.value || 'full';
+    state['directory-type'] = document.querySelector('input[name="directory-type"]:checked')?.value || 'full';
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (_) {}
 }
 
@@ -88,9 +106,113 @@ function loadState() {
                 el(id).value = state[id];
             }
         });
+        // Restore radio buttons
+        if (state['hostname-type']) {
+            const hostnameRadio = document.getElementById(`prompt-hostname-${state['hostname-type']}`);
+            if (hostnameRadio) hostnameRadio.checked = true;
+        }
+        if (state['directory-type']) {
+            const directoryRadio = document.getElementById(`prompt-directory-${state['directory-type']}`);
+            if (directoryRadio) directoryRadio.checked = true;
+        }
     } catch (_) {
         localStorage.removeItem(STORAGE_KEY);
     }
+}
+
+// ── Prompt Builder ───────────────────────────────────────────────────────────
+function generatePS1() {
+    const parts = [];
+    const colorMap = {
+        '0;30': '#000', '0;31': '#a00', '0;32': '#0a0', '0;33': '#a50',
+        '0;34': '#00a', '0;35': '#a0a', '0;36': '#0aa', '0;37': '#aaa',
+        '1;30': '#555', '1;31': '#f55', '1;32': '#5f5', '1;33': '#ff5',
+        '1;34': '#55f', '1;35': '#f5f', '1;36': '#5ff', '1;37': '#fff',
+    };
+
+    const wrapColor = (code) => code ? `\\[\\e[${code}m\\]` : '';
+    const resetColor = '\\[\\e[0m\\]';
+    
+    let previewHTML = '';
+    
+    // Newline
+    if (chk('prompt-newline-checkbox')) {
+        parts.push('\\n');
+        previewHTML += '<br>';
+    }
+
+    // Timestamp
+    if (chk('prompt-time-checkbox')) {
+        const timeFmt = val('prompt-time-format') || '%H:%M:%S';
+        parts.push(`\\[\\D{${timeFmt}}\\]`);
+        previewHTML += `<span style="color:#aaa">${new Date().toLocaleTimeString()}</span> `;
+    }
+
+    // Exit code
+    if (chk('prompt-exitcode-checkbox')) {
+        parts.push('\\[$([ $? -eq 0 ] || echo "\\e[0;31m[$?] \\e[0m")\\]');
+        previewHTML += '<span style="color:#f55">[1]</span> ';
+    }
+
+    // Username
+    if (chk('prompt-username-checkbox')) {
+        const userColor = val('prompt-color-username');
+        parts.push(wrapColor(userColor) + '\\u' + resetColor);
+        const htmlColor = colorMap[userColor] || '#fff';
+        previewHTML += `<span style="color:${htmlColor}">user</span>`;
+    }
+
+    // Separator
+    const separator = val('prompt-separator-main') || '@';
+    if (chk('prompt-username-checkbox') && chk('prompt-hostname-checkbox')) {
+        parts.push(separator);
+        previewHTML += separator;
+    }
+
+    // Hostname
+    if (chk('prompt-hostname-checkbox')) {
+        const hostnameType = document.querySelector('input[name="hostname-type"]:checked')?.value;
+        const hostColor = val('prompt-color-hostname');
+        const hostCode = hostnameType === 'short' ? '\\h' : '\\H';
+        parts.push(wrapColor(hostColor) + hostCode + resetColor);
+        const htmlColor = colorMap[hostColor] || '#fff';
+        const hostName = hostnameType === 'short' ? 'hostname' : 'hostname.domain';
+        previewHTML += `<span style="color:${htmlColor}">${hostName}</span>`;
+    }
+
+    // Path separator
+    const pathSep = val('prompt-separator-path') || ':';
+    if ((chk('prompt-username-checkbox') || chk('prompt-hostname-checkbox')) && chk('prompt-directory-checkbox')) {
+        parts.push(pathSep);
+        previewHTML += pathSep;
+    }
+
+    // Directory
+    if (chk('prompt-directory-checkbox')) {
+        const dirType = document.querySelector('input[name="directory-type"]:checked')?.value;
+        const dirColor = val('prompt-color-directory');
+        const dirCode = dirType === 'basename' ? '\\W' : '\\w';
+        parts.push(wrapColor(dirColor) + dirCode + resetColor);
+        const htmlColor = colorMap[dirColor] || '#fff';
+        const dirName = dirType === 'basename' ? 'project' : '~/work/project';
+        previewHTML += `<span style="color:${htmlColor}">${dirName}</span>`;
+    }
+
+
+    // Symbol
+    const symbolInput = val('prompt-symbol-input') || '$';
+    const useRootSymbol = chk('prompt-symbol-root-checkbox');
+    if (useRootSymbol) {
+        parts.push(' \\$ ');
+        previewHTML += ' $ ';
+    } else {
+        parts.push(` ${symbolInput} `);
+        previewHTML += ` ${symbolInput} `;
+    }
+
+    const ps1 = parts.join('');
+    el('prompt-preview-text').innerHTML = previewHTML;
+    return ps1;
 }
 
 // ── Generate ─────────────────────────────────────────────────────────────────
@@ -186,6 +308,10 @@ function generateBashrc() {
         hist_strings.push(str_hist_append);
     }
 
+    // PS1 Prompt
+    const ps1 = generatePS1();
+    const prompt_output = ps1 ? `export PS1='${ps1}'` : null;
+
     if (hist_strings.length > 0) {
         generated_results.push('\n# History Settings');
         generated_results.push(hist_strings.join('\n'));
@@ -197,6 +323,10 @@ function generateBashrc() {
     if (option_strings.length > 0) {
         generated_results.push('\n# Extra options');
         generated_results.push(option_strings.join('\n'));
+    }
+    if (prompt_output) {
+        generated_results.push('\n# Custom Prompt');
+        generated_results.push(prompt_output);
     }
 
     el('generated-bashrc').value = generated_results.join('\n');
@@ -215,6 +345,14 @@ const livePreviewIds = [
     'alias-now-checkbox', 'alias-my-ip-checkbox',
     'options-editor-input', 'options-pager-input', 'options-logout-timer-input',
     'options-mesg-n-checkbox', 'options-checkwinsize-checkbox', 'options-ignore-eofs-input',
+    'prompt-username-checkbox', 'prompt-hostname-checkbox', 'prompt-directory-checkbox',
+    'prompt-exitcode-checkbox', 'prompt-time-checkbox',
+    'prompt-symbol-root-checkbox', 'prompt-newline-checkbox',
+    'prompt-time-format', 'prompt-symbol-input',
+    'prompt-color-username', 'prompt-color-hostname', 'prompt-color-directory',
+    'prompt-separator-main', 'prompt-separator-path',
+    'prompt-hostname-full', 'prompt-hostname-short',
+    'prompt-directory-full', 'prompt-directory-basename',
 ];
 livePreviewIds.forEach(id => {
     el(id).addEventListener('input',  generateBashrc);
@@ -235,6 +373,8 @@ on('aliases-select-all',   () => setAllCheckboxes('aliases-pane', true));
 on('aliases-deselect-all', () => setAllCheckboxes('aliases-pane', false));
 on('options-select-all',   () => setAllCheckboxes('options-pane', true));
 on('options-deselect-all', () => setAllCheckboxes('options-pane', false));
+on('prompt-select-all',    () => setAllCheckboxes('prompt-pane', true));
+on('prompt-deselect-all',  () => setAllCheckboxes('prompt-pane', false));
 
 // ── Reset All ────────────────────────────────────────────────────────────────
 on('reset-all-button', function () {

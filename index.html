@@ -36,6 +36,10 @@
             <button class="nav-link" id="options-tab" data-bs-toggle="tab" data-bs-target="#options-pane"
                     type="button" role="tab" aria-controls="options-pane" aria-selected="false">Options</button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="prompt-tab" data-bs-toggle="tab" data-bs-target="#prompt-pane"
+                    type="button" role="tab" aria-controls="prompt-pane" aria-selected="false">Prompt</button>
+        </li>
     </ul>
 
     <!-- Tab content -->
@@ -193,6 +197,164 @@
             <div class="row mb-3">
                 <div class="col-8"><input type="number" min="0" max="5" class="form-control" id="options-ignore-eofs-input"></div>
                 <div class="col-4"><button class="btn btn-info w-100" type="button" id="options-ignore-eofs-example">Example</button></div>
+            </div>
+        </div>
+
+        <!-- Prompt -->
+        <div class="tab-pane fade p-4" id="prompt-pane" role="tabpanel" aria-labelledby="prompt-tab">
+            <div class="d-flex gap-2 mb-4">
+                <button type="button" class="btn btn-sm btn-success" id="prompt-select-all">☑ Select All</button>
+                <button type="button" class="btn btn-sm btn-warning" id="prompt-deselect-all">☐ Deselect All</button>
+            </div>
+
+            <div class="alert alert-info mb-4" role="alert">
+                <strong>Live Preview:</strong>
+                <div id="prompt-preview" class="mt-2 p-2 rounded" style="background-color: #000; color: #fff; font-family: monospace;">
+                    <span id="prompt-preview-text"></span>
+                </div>
+            </div>
+
+            <h4>Username</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="prompt-username-checkbox" checked>
+            </div>
+
+            <h4>Hostname</h4>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="prompt-hostname-checkbox" checked>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="hostname-type" id="prompt-hostname-full" value="full" checked>
+                        <label class="form-check-label" for="prompt-hostname-full">Full hostname</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="hostname-type" id="prompt-hostname-short" value="short">
+                        <label class="form-check-label" for="prompt-hostname-short">Short hostname</label>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Current Directory</h4>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="prompt-directory-checkbox" checked>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="directory-type" id="prompt-directory-full" value="full" checked>
+                        <label class="form-check-label" for="prompt-directory-full">Full path</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="directory-type" id="prompt-directory-basename" value="basename">
+                        <label class="form-check-label" for="prompt-directory-basename">Basename only</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <h4>Exit Code (show if non-zero)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="prompt-exitcode-checkbox">
+            </div>
+
+            <h4>Timestamp</h4>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="prompt-time-checkbox">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <input type="text" class="form-control" id="prompt-time-format" placeholder="e.g., %H:%M:%S" value="%H:%M:%S">
+                </div>
+            </div>
+
+            <h4>Prompt Symbol</h4>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <input type="text" class="form-control" id="prompt-symbol-input" placeholder="$ or #" value="$">
+                </div>
+                <div class="col-6">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="prompt-symbol-root-checkbox" checked>
+                        <label class="form-check-label" for="prompt-symbol-root-checkbox">Use # for root</label>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Colors</h4>
+            <div class="row mb-3">
+                <div class="col-md-6 mb-2">
+                    <label for="prompt-color-username" class="form-label">Username Color</label>
+                    <select class="form-select" id="prompt-color-username">
+                        <option value="0;32" selected>Green</option>
+                        <option value="0;34">Blue</option>
+                        <option value="0;36">Cyan</option>
+                        <option value="0;33">Yellow</option>
+                        <option value="0;35">Magenta</option>
+                        <option value="0;31">Red</option>
+                        <option value="1;32">Bright Green</option>
+                        <option value="1;34">Bright Blue</option>
+                        <option value="1;36">Bright Cyan</option>
+                        <option value="0;37">White</option>
+                        <option value="">None (default)</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label for="prompt-color-hostname" class="form-label">Hostname Color</label>
+                    <select class="form-select" id="prompt-color-hostname">
+                        <option value="0;32">Green</option>
+                        <option value="0;34" selected>Blue</option>
+                        <option value="0;36">Cyan</option>
+                        <option value="0;33">Yellow</option>
+                        <option value="0;35">Magenta</option>
+                        <option value="0;31">Red</option>
+                        <option value="1;32">Bright Green</option>
+                        <option value="1;34">Bright Blue</option>
+                        <option value="1;36">Bright Cyan</option>
+                        <option value="0;37">White</option>
+                        <option value="">None (default)</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label for="prompt-color-directory" class="form-label">Directory Color</label>
+                    <select class="form-select" id="prompt-color-directory">
+                        <option value="0;32">Green</option>
+                        <option value="0;34">Blue</option>
+                        <option value="0;36">Cyan</option>
+                        <option value="0;33" selected>Yellow</option>
+                        <option value="0;35">Magenta</option>
+                        <option value="0;31">Red</option>
+                        <option value="1;32">Bright Green</option>
+                        <option value="1;34">Bright Blue</option>
+                        <option value="1;36">Bright Cyan</option>
+                        <option value="0;37">White</option>
+                        <option value="">None (default)</option>
+                    </select>
+                </div>
+            </div>
+
+            <h4>Separators</h4>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="prompt-separator-main" class="form-label">Component Separator</label>
+                    <input type="text" class="form-control" id="prompt-separator-main" value="@" maxlength="5">
+                </div>
+                <div class="col-6">
+                    <label for="prompt-separator-path" class="form-label">Path Separator</label>
+                    <input type="text" class="form-control" id="prompt-separator-path" value=":" maxlength="5">
+                </div>
+            </div>
+
+            <h4>Newline before prompt</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="prompt-newline-checkbox">
             </div>
         </div>
 
