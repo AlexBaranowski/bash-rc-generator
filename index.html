@@ -204,7 +204,7 @@
 
     <div class="mb-4">
         <div class="d-flex justify-content-between align-items-center mb-2">
-            <h2 class="mb-0">Generated .bashrc</h2>
+            <h2 class="mb-0">Generated <code>.bashrc</code></h2>
             <div class="d-flex gap-2">
                 <button type="button" class="btn btn-warning btn-lg" id="copy-button">
                     📋 Copy
@@ -216,6 +216,195 @@
         </div>
         <textarea class="form-control" rows="14" id="generated-bashrc" spellcheck="false" readonly></textarea>
     </div>
+
+    <!-- ── Options Reference ───────────────────────────────────────────── -->
+    <section id="options-reference" class="mb-5">
+        <h2 class="mb-1">Options Reference</h2>
+        <p class="mb-4">What every setting does and where to read more in the
+            <a href="https://www.gnu.org/software/bash/manual/bash.html" target="_blank" rel="noopener noreferrer">GNU Bash manual ↗</a>.
+        </p>
+
+        <!-- History -->
+        <h3 class="mb-3">History Settings</h3>
+        <dl class="reference-list">
+            <dt>HISTFILESIZE</dt>
+            <dd>Maximum number of lines kept in the history file (<code>~/.bash_history</code>).
+                When the limit is exceeded the oldest entries are pruned.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-History-Facilities" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>HISTSIZE</dt>
+            <dd>Number of commands remembered in the <em>in-memory</em> history list for the
+                current session. Each new terminal loads up to this many entries from
+                <code>HISTFILE</code>.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-History-Facilities" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>HISTIGNORE</dt>
+            <dd>Colon-separated list of glob patterns. Any command matching a pattern is
+                silently dropped from the history list. Useful for noisy commands
+                (<code>ls</code>, <code>cd</code>) or to avoid accidentally recording secrets.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>HISTCONTROL</dt>
+            <dd>Controls duplicate handling.
+                <code>ignoredups</code> — skip adjacent duplicates;
+                <code>ignorespace</code> — skip commands prefixed with a space;
+                <code>ignoreboth</code> — both of the above;
+                <code>erasedups</code> — remove <em>all</em> earlier duplicates of each new entry.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>HISTTIMEFORMAT</dt>
+            <dd>When set, <code>history</code> prepends a timestamp (formatted via
+                <code>strftime</code>) to every entry. Must end with a space character so the
+                command text is separated from the timestamp.
+                Example: <code>%Y-%m-%d %T </code>
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>HISTFILE</dt>
+            <dd>Path to the file where history is persisted between sessions.
+                Defaults to <code>~/.bash_history</code>. Useful if you want separate history
+                files per project or machine role.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>histappend (shopt)</dt>
+            <dd>By default Bash <em>overwrites</em> <code>HISTFILE</code> on exit. With
+                <code>histappend</code> set, Bash appends instead, preserving history from
+                other open sessions.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>Shared history</dt>
+            <dd>Hooks <code>PROMPT_COMMAND</code> to flush (<code>history -a</code>), clear
+                (<code>history -c</code>), and reload (<code>history -r</code>) the history
+                list before every prompt, so commands from all open terminals are immediately
+                visible everywhere.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+        </dl>
+
+        <!-- Aliases -->
+        <h3 class="mt-4 mb-3">Aliases</h3>
+        <dl class="reference-list">
+            <dt>pushd / popd as cd</dt>
+            <dd>Replaces <code>cd</code> with <code>pushd</code> so every directory change is
+                recorded on the directory stack. Use <code>back</code> to return to the previous
+                directory. Both builtins are silenced to keep output clean.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Directory-Stack-Builtins" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>cd aliases (.., ..., ....)</dt>
+            <dd>Shortcuts for navigating up the directory tree:
+                <code>..</code> (one level up), <code>...</code> (two), <code>....</code>
+                (three), <code>.....</code> (four).
+            </dd>
+
+            <dt>Safer rm / mv / cp / ln</dt>
+            <dd>Adds <code>-i</code> (prompt before overwrite) to <code>mv</code>,
+                <code>cp</code>, and <code>ln</code>. Uses <code>-I</code> (prompt once before
+                removing more than 3 files) and <code>--preserve-root</code> (refuse to operate
+                recursively on <code>/</code>) on <code>rm</code>.
+            </dd>
+
+            <dt>sudo alias</dt>
+            <dd>The trailing space in <code>alias sudo='sudo '</code> instructs Bash to
+                check the next word for alias expansion, so your other aliases continue to work
+                correctly after <code>sudo</code>.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Aliases" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>mkdir -pv</dt>
+            <dd>Creates all intermediate parent directories as needed (<code>-p</code>) and
+                prints each directory as it is created (<code>-v</code>), giving you a clear
+                audit trail.
+            </dd>
+
+            <dt>vi → vim</dt>
+            <dd>Redirects the classic <code>vi</code> command to <code>vim</code>, the improved
+                editor, without having to retrain muscle memory.
+            </dd>
+
+            <dt>Colorized grep</dt>
+            <dd>Passes <code>--color=auto</code> to <code>grep</code>, <code>egrep</code>, and
+                <code>fgrep</code> so pattern matches are highlighted in terminal output.
+                Only activates when output goes to a terminal (not a pipe).
+            </dd>
+
+            <dt>colordiff</dt>
+            <dd>If <code>colordiff</code> is installed, replaces the plain unified diff output
+                with a syntax-colored version. The <code>hash</code> guard makes the alias a
+                no-op when <code>colordiff</code> is absent.
+            </dd>
+
+            <dt>pbcopy / pbpaste</dt>
+            <dd>Brings macOS-style clipboard commands to Linux using
+                <code>xclip</code>. Requires <code>xclip</code> to be installed
+                (<code>sudo apt install xclip</code>).
+            </dd>
+
+            <dt>now</dt>
+            <dd>Prints the current date, time, and ISO week number in one shot.
+                Handy for quickly stamping notes or log entries.
+            </dd>
+
+            <dt>my_ip</dt>
+            <dd>Queries the <code>ifconfig.co</code> API and pretty-prints your public IP
+                information as JSON using Python's built-in
+                <code>json.tool</code> module.
+            </dd>
+        </dl>
+
+        <!-- Options -->
+        <h3 class="mt-4 mb-3">Options</h3>
+        <dl class="reference-list">
+            <dt>EDITOR and VISUAL</dt>
+            <dd>The preferred text editor invoked by programs such as
+                <code>git commit</code>, <code>crontab -e</code>, and <code>visudo</code>.
+                <code>VISUAL</code> is intended for full-screen editors; most modern tools
+                check it first and fall back to <code>EDITOR</code>.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>PAGER</dt>
+            <dd>The program used to display multi-page output (e.g. <code>man</code>,
+                <code>git log</code>). Common choices: <code>less</code> (feature-rich, the
+                default on most distros), <code>most</code> (colour support, multiple windows),
+                <code>more</code> (simple, always available).
+            </dd>
+
+            <dt>Auto Logout Timeout (TMOUT)</dt>
+            <dd>When set to a positive integer, Bash automatically exits after that many
+                seconds of inactivity. A useful security measure on shared, public, or
+                unattended terminals.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>mesg n</dt>
+            <dd>Prevents other logged-in users from writing messages to your terminal with
+                <code>write</code> or <code>wall</code>. Reduces interruptions and provides
+                a small privacy/security benefit on multi-user systems.
+            </dd>
+
+            <dt>checkwinsize (shopt)</dt>
+            <dd>After each command, Bash checks the terminal window size and updates the
+                <code>LINES</code> and <code>COLUMNS</code> variables accordingly. Without
+                this, text can wrap incorrectly after resizing the terminal window.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>IGNOREEOF</dt>
+            <dd>The number of consecutive <kbd>Ctrl-D</kbd> (EOF) signals Bash ignores before
+                actually exiting. Setting it to <code>2</code> means you must press
+                <kbd>Ctrl-D</kbd> three times in a row to quit, preventing accidental logouts.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+        </dl>
+    </section>
+
 </div>
 
 <footer class="footer mt-auto py-3">

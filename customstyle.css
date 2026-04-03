@@ -56,3 +56,47 @@ h1, h2, h3, h4, h5, h6 {
 .footer a:active {
   color: #105261;
 }
+
+/* Options Reference section */
+#options-reference h2,
+#options-reference h3 {
+  color: var(--color-accent);
+}
+
+#options-reference > p a {
+  color: var(--color-footer);
+}
+
+.reference-list {
+  border-left: 3px solid var(--color-surface);
+  padding-left: 1rem;
+}
+
+.reference-list dt {
+  color: var(--color-accent);
+  font-weight: 700;
+  margin-top: 1.1rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+}
+
+.reference-list dd {
+  margin-left: 0;
+  margin-top: 0.25rem;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.reference-list dd code,
+.reference-list dd kbd {
+  background-color: var(--color-surface2);
+  color: var(--color-accent);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.reference-list a {
+  color: var(--color-footer);
+  white-space: nowrap;
+}
