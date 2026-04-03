@@ -1,182 +1,143 @@
-/* 
- * Please note that I'm not frontend developer. This code might be dead simple and verbose.
- * If you think that there is room for improvement, well pull request are open ;).
-*/
+/*
+ * Vanilla JS — no jQuery dependency.
+ * Pull requests welcome: https://github.com/AlexBaranowski/bash-rc-generator
+ */
 
-$(function () {
-    $("#accordion").accordion()
-    $('input[type=checkbox]').bootstrapToggle('off')
-});
-// History
-$("#history-file-size-example").click(function () {
-    $("#history-file-size-input").val("2000")
-});
-$("#history-size-example").click(function () {
-    $("#history-size-input").val("2000")
-});
-$("#history-histcontrol-example-none").click(function () {
-    $("#history-histcontrol-input").val("")
-});
-$("#history-ignore-example").click(function () {
-    $("#history-ignore-input").val("cd*:false:history:htop:ls*:ll*:la:l:popd:pushd*:reset:top:true")
-});
-$("#history-histcontrol-example-ignoreboth").click(function () {
-    $("#history-histcontrol-input").val("ignoreboth")
-});
-$("#history-histcontrol-example-ignorespace").click(function () {
-    $("#history-histcontrol-input").val("ignorespace")
-});
-$("#history-histcontrol-example-ignoredups").click(function () {
-    $("#history-histcontrol-input").val("ignoredups")
-});
-$("#history-histcontrol-example-erasedups").click(function () {
-    $("#history-histcontrol-input").val("erasedups")
-});
-$("#history-time-format-example").click(function () {
-    $("#history-time-format-input").val("%Y-%m-%d %T ")
-});
-$("#history-file-example").click(function () {
-    $("#history-file-input").val("~/.my_bash_history")
-});
-//Extra options
-$("#options-editor-none").click(function () {
-    $("#options-editor-input").val("")
-});
-$("#options-editor-vi").click(function () {
-    $("#options-editor-input").val("vi")
-});
-$("#options-editor-vim").click(function () {
-    $("#options-editor-input").val("vim")
-});
-$("#options-editor-nano").click(function () {
-    $("#options-editor-input").val("nano")
-});
-$("#options-pager-none").click(function () {
-    $("#options-pager-input").val("")
-});
-$("#options-pager-less").click(function () {
-    $("#options-pager-input").val("less")
-});
-$("#options-pager-most").click(function () {
-    $("#options-pager-input").val("most")
-});
-$("#options-pager-most").click(function () {
-    $("#options-pager-input").val("most")
-});
-$("#options-logout-timer-example").click(function () {
-    $("#options-logout-timer-input").val("3600")
-});
-$("#options-ignore-eofs-example").click(function () {
-    $("#options-ignore-eofs-input").val("2")
-});
+// Utilities
+const el  = (id) => document.getElementById(id);
+const val = (id) => el(id).value;
+const chk = (id) => el(id).checked;
+const set = (id, v) => { el(id).value = v; };
+const on  = (id, fn) => el(id).addEventListener('click', fn);
 
+// ── History example buttons ──────────────────────────────────────────────────
+on('history-file-size-example',  () => set('history-file-size-input', '2000'));
+on('history-size-example',       () => set('history-size-input', '2000'));
+on('history-ignore-example',     () => set('history-ignore-input', 'cd*:false:history:htop:ls*:ll*:la:l:popd:pushd*:reset:top:true'));
+on('history-histcontrol-example-none',        () => set('history-histcontrol-input', ''));
+on('history-histcontrol-example-ignoreboth',  () => set('history-histcontrol-input', 'ignoreboth'));
+on('history-histcontrol-example-ignorespace', () => set('history-histcontrol-input', 'ignorespace'));
+on('history-histcontrol-example-ignoredups',  () => set('history-histcontrol-input', 'ignoredups'));
+on('history-histcontrol-example-erasedups',   () => set('history-histcontrol-input', 'erasedups'));
+on('history-time-format-example', () => set('history-time-format-input', '%Y-%m-%d %T '));
+on('history-file-example',        () => set('history-file-input', '~/.my_bash_history'));
 
-// Generting the bashrc
-$("#generate-button").click(function () {
-    
-    website_string = "# Generated with bashrc generator: https://alexbaranowski.github.io/bash-rc-generator/"
-    generated_results = [website_string]
+// ── Options example buttons ──────────────────────────────────────────────────
+on('options-editor-none',  () => set('options-editor-input', ''));
+on('options-editor-vi',    () => set('options-editor-input', 'vi'));
+on('options-editor-vim',   () => set('options-editor-input', 'vim'));
+on('options-editor-nano',  () => set('options-editor-input', 'nano'));
+on('options-pager-none',   () => set('options-pager-input', ''));
+on('options-pager-less',   () => set('options-pager-input', 'less'));
+on('options-pager-most',   () => set('options-pager-input', 'most'));
+on('options-logout-timer-example', () => set('options-logout-timer-input', '3600'));
+on('options-ignore-eofs-example',  () => set('options-ignore-eofs-input', '2'));
 
-    // strings for toggles, easier to put the together, then join
-    const str_hist_append = "shopt -s histappend"
-    const str_shared_history = [str_hist_append, "export PROMPT_COMMAND=\"history -a; history -c; history -r; $PROMPT_COMMAND\""].join("\n")
-    const str_super_pushd_popd = ["alias cd=\"pushd\"", "alias back=\"popd\"", "popd()", "{", "  builtin popd > /dev/null", "}", "pushd()",
-        "{", "  if [ $# -eq 0 ]; then", "    builtin pushd \"${HOME}\" > /dev/null", "  elif [ $1 == \"-\" ]; then",
-        "      builtin popd > /dev/null", "  else", "    builtin pushd \"$1\" > /dev/null", "  fi", "}"].join("\n")
-    const str_cd_aliases = ["alias ..=\"cd ..\"", "alias ...=\"cd ../../../\"", "alias ....=\"cd ../../../../\"",
-        "alias .....=\"cd ../../../../\"", "alias .....=\"cd ../../../../\""].join("\n")
-    const str_safer_aliases = ["alias rm='rm -I --preserve-root'", "alias mv='mv -i'", "alias cp='cp -i'", "alias ln='ln -i'"].join("\n")
-    const str_sudo_alias = "alias sudo='sudo '"
-    const str_alias_mkdir = "alias mkdir=\"mkdir -pv\""
-    const str_alias_vim = "alias vi=\"vim\""
-    const str_alias_greps = ["alias grep='grep --color=auto'", "alias egrep='egrep --color=auto'", "alias fgrep='fgrep --color=auto'"].join("\n")
-    const str_alias_colordiff = "hash colordiff &> /dev/null && alias diff='colordiff'"
-    const str_alias_pbcopy_pbpaste = ["alias pbcopy=\"xclip -selection c\"", "alias pbpaste=\"xclip -selection clipboard -o\""].join("\n")
-    const str_alias_now = "alias now='date +\"%F-%T; %V week\"'"
-    const str_alias_my_ip = "alias my_ip='curl -s ifconfig.co/json | python3 -m json.tool'"
-    const str_option_checkwinsize = "shopt -s checkwinsize"
-    const str_option_disable_messages = "mesg n"
-
-    // Each section has own string array.
-    let hist_strings = []
-    let alias_strings = []
-    let options_strings = []
-    // Get user inputs
-    const histfilesize = $("#history-file-size-input").val()
-    const histsize = $("#history-size-input").val()
-    const histignore = $("#history-ignore-input").val()
-    const histcontrol = $("#history-histcontrol-input").val()
-    const histtimeformat = $("#history-time-format-input").val()
-    const histfile = $("#history-file-input").val()
-    const enable_history_shared = $('#history-shared-checkbox').prop('checked')
-    const enable_history_appending = $('#history-append-checkbox').prop('checked')
-    const enable_alias_super_pushd_popd = $('#alias-popd-pushd-checkbox').prop('checked')
-    const enable_alias_cd = $('#alias-cd-checkbox').prop('checked')
-    const enable_safer_aliases = $('#alias-safer-checkbox').prop('checked')
-    const enable_sudo_aliased = $('#alias-sudo-checkbox').prop('checked')
-    const enable_alias_mkdir = $('#alias-mkdir-checkbox').prop('checked')
-    const enable_alias_vim = $('#alias-vim-checkbox').prop('checked')
-    const enable_alias_greps = $('#alias-greps-checkbox').prop('checked')
-    const enable_alias_colordiff = $('#alias-colordiff-checkbox').prop('checked')
-    const enable_alias_copy_paste = $('#alias-copy-and-paste-checkbox').prop('checked')
-    const enable_alias_now = $('#alias-now-checkbox').prop('checked')
-    const enable_alias_my_ip = $('#alias-my-ip-checkbox').prop('checked')
-
-    const option_editor = $("#options-editor-input").val()
-    const option_pager = $("#options-pager-input").val()
-    const option_auto_logout = $("#options-logout-timer-input").val()
-    const option_disable_messages = $("#options-mesg-n-checkbox").prop('checked')
-    const option_checkwinsize = $("#options-checkwinsize-checkbox").prop('checked')
-    const option_ignore_eofs = $("#options-ignore-eofs-input").val()
-
-    //Tables has tables where first item is "condition"(in sTrAnGe JS way) and second is the value.
-    hist = [[histfilesize, "export HISTFILESIZE=" + histfilesize], [histsize, "export HISTSIZE=" + histsize],
-        [histignore, "export HISTIGNORE=\"" + histignore + "\""], [histcontrol, "export HISTCONTROL=\"" + histcontrol + "\""],
-        [histtimeformat, "export HISTTIMEFORMAT=\"" + histtimeformat + "\""], [histfile, "export HISTFILE=\"" + histfile + "\""]
+// ── Generate ─────────────────────────────────────────────────────────────────
+on('generate-button', function () {
+    const generated_results = [
+        '# Generated with bashrc generator: https://alexbaranowski.github.io/bash-rc-generator/'
     ];
-    aliases = [[enable_alias_super_pushd_popd, str_super_pushd_popd], [enable_alias_cd, str_cd_aliases],
-        [enable_safer_aliases, str_safer_aliases], [enable_sudo_aliased, str_sudo_alias], [enable_alias_mkdir, str_alias_mkdir],
-        [enable_alias_vim, str_alias_vim], [enable_alias_greps, str_alias_greps], [enable_alias_colordiff, str_alias_colordiff],
-        [enable_alias_copy_paste, str_alias_pbcopy_pbpaste], [enable_alias_now, str_alias_now], [enable_alias_my_ip, str_alias_my_ip]]
 
-    options=[[option_editor, ["export EDITOR=\"" + option_editor + "\"", "export VISUAL=\"" + option_editor + "\""].join('\n')],
-        [option_pager, "export PAGER=\"" + option_pager + "\""], [option_auto_logout,"export TMOUT=\"" + option_auto_logout + "\"" ],
-        [option_disable_messages, str_option_disable_messages], [option_checkwinsize, str_option_checkwinsize], [option_ignore_eofs, "export IGNOREEOF=" + option_ignore_eofs]]
-    for (var i = 0; i < hist.length; i++) {
-        if (hist[i][0]) {
-            hist_strings.push(hist[i][1])
-        }
-    }
-    for (var i = 0; i < aliases.length; i++) {
-        if (aliases[i][0]) {
-            alias_strings.push(aliases[i][1])
-        }
-    }
-    for (var i = 0; i < options.length; i++) {
-        if (options[i][0]) {
-            options_strings.push(options[i][1])
-        }
+    // Output string constants
+    const str_hist_append     = 'shopt -s histappend';
+    const str_shared_history  = [
+        str_hist_append,
+        'export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"'
+    ].join('\n');
+    const str_super_pushd_popd = [
+        'alias cd="pushd"', 'alias back="popd"',
+        'popd()', '{', '  builtin popd > /dev/null', '}',
+        'pushd()', '{',
+        '  if [ $# -eq 0 ]; then', '    builtin pushd "${HOME}" > /dev/null',
+        '  elif [ $1 == "-" ]; then', '      builtin popd > /dev/null',
+        '  else', '    builtin pushd "$1" > /dev/null',
+        '  fi', '}'
+    ].join('\n');
+    const str_cd_aliases      = ['alias ..="cd .."', 'alias ...="cd ../../../"', 'alias ....="cd ../../../../"', 'alias .....="cd ../../../../"'].join('\n');
+    const str_safer_aliases   = ["alias rm='rm -I --preserve-root'", "alias mv='mv -i'", "alias cp='cp -i'", "alias ln='ln -i'"].join('\n');
+    const str_sudo_alias      = "alias sudo='sudo '";
+    const str_alias_mkdir     = 'alias mkdir="mkdir -pv"';
+    const str_alias_vim       = 'alias vi="vim"';
+    const str_alias_greps     = ["alias grep='grep --color=auto'", "alias egrep='egrep --color=auto'", "alias fgrep='fgrep --color=auto'"].join('\n');
+    const str_alias_colordiff = "hash colordiff &> /dev/null && alias diff='colordiff'";
+    const str_alias_pbcopy    = ['alias pbcopy="xclip -selection c"', 'alias pbpaste="xclip -selection clipboard -o"'].join('\n');
+    const str_alias_now       = 'alias now=\'date +"%F-%T; %V week"\'';
+    const str_alias_my_ip     = "alias my_ip='curl -s ifconfig.co/json | python3 -m json.tool'";
+    const str_checkwinsize    = 'shopt -s checkwinsize';
+    const str_mesg_n          = 'mesg n';
+
+    // Read inputs
+    const histfilesize = val('history-file-size-input');
+    const histsize     = val('history-size-input');
+    const histignore   = val('history-ignore-input');
+    const histcontrol  = val('history-histcontrol-input');
+    const histtimefmt  = val('history-time-format-input');
+    const histfile     = val('history-file-input');
+    const hist_shared  = chk('history-shared-checkbox');
+    const hist_append  = chk('history-append-checkbox');
+
+    const opt_editor       = val('options-editor-input');
+    const opt_pager        = val('options-pager-input');
+    const opt_logout       = val('options-logout-timer-input');
+    const opt_mesg_n       = chk('options-mesg-n-checkbox');
+    const opt_checkwin     = chk('options-checkwinsize-checkbox');
+    const opt_ignore_eofs  = val('options-ignore-eofs-input');
+
+    // [condition, output-string] pairs
+    const hist_pairs = [
+        [histfilesize, `export HISTFILESIZE=${histfilesize}`],
+        [histsize,     `export HISTSIZE=${histsize}`],
+        [histignore,   `export HISTIGNORE="${histignore}"`],
+        [histcontrol,  `export HISTCONTROL="${histcontrol}"`],
+        [histtimefmt,  `export HISTTIMEFORMAT="${histtimefmt}"`],
+        [histfile,     `export HISTFILE="${histfile}"`],
+    ];
+    const alias_pairs = [
+        [chk('alias-popd-pushd-checkbox'),    str_super_pushd_popd],
+        [chk('alias-cd-checkbox'),            str_cd_aliases],
+        [chk('alias-safer-checkbox'),         str_safer_aliases],
+        [chk('alias-sudo-checkbox'),          str_sudo_alias],
+        [chk('alias-mkdir-checkbox'),         str_alias_mkdir],
+        [chk('alias-vim-checkbox'),           str_alias_vim],
+        [chk('alias-greps-checkbox'),         str_alias_greps],
+        [chk('alias-colordiff-checkbox'),     str_alias_colordiff],
+        [chk('alias-copy-and-paste-checkbox'),str_alias_pbcopy],
+        [chk('alias-now-checkbox'),           str_alias_now],
+        [chk('alias-my-ip-checkbox'),         str_alias_my_ip],
+    ];
+    const option_pairs = [
+        [opt_editor,   [`export EDITOR="${opt_editor}"`, `export VISUAL="${opt_editor}"`].join('\n')],
+        [opt_pager,    `export PAGER="${opt_pager}"`],
+        [opt_logout,   `export TMOUT="${opt_logout}"`],
+        [opt_mesg_n,   str_mesg_n],
+        [opt_checkwin, str_checkwinsize],
+        [opt_ignore_eofs, `export IGNOREEOF=${opt_ignore_eofs}`],
+    ];
+
+    const hist_strings   = hist_pairs.filter(([c]) => c).map(([, v]) => v);
+    const alias_strings  = alias_pairs.filter(([c]) => c).map(([, v]) => v);
+    const option_strings = option_pairs.filter(([c]) => c).map(([, v]) => v);
+
+    // histappend / shared history are special cases
+    if (hist_shared) {
+        hist_strings.push(str_shared_history);
+    } else if (hist_append) {
+        hist_strings.push(str_hist_append);
     }
 
-    // Special cases
-    if (enable_history_shared) {
-        hist_strings.push(str_shared_history)
-    } else if (enable_history_appending) {
-        hist_strings.push(str_hist_append)
+    if (hist_strings.length > 0) {
+        generated_results.push('\n# History Settings');
+        generated_results.push(hist_strings.join('\n'));
+    }
+    if (alias_strings.length > 0) {
+        generated_results.push('\n# Aliases');
+        generated_results.push(alias_strings.join('\n'));
+    }
+    if (option_strings.length > 0) {
+        generated_results.push('\n# Extra options');
+        generated_results.push(option_strings.join('\n'));
     }
 
-
-    if (hist_strings.length != 0) {
-        generated_results.push("# History Settings\n")
-        generated_results.push(hist_strings.join("\n"))
-    }
-    if (alias_strings.length != 0) {
-        generated_results.push("\n# Aliases")
-        generated_results.push(alias_strings.join("\n"))
-    }
-    if (options_strings.length != 0) {
-        generated_results.push("# Extra options\n")
-        generated_results.push(options_strings.join("\n"))
-    }
-    $("#generated-bashrc").val(generated_results.join("\n"))
+    el('generated-bashrc').value = generated_results.join('\n');
 });
