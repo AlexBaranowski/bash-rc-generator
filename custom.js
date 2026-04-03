@@ -66,9 +66,6 @@ $("#options-pager-most").click(function () {
 $("#options-logout-timer-example").click(function () {
     $("#options-logout-timer-input").val("3600")
 });
-$("#options-logout-timer-example").click(function () {
-    $("#options-logout-timer-input").val("3600")
-});
 $("#options-ignore-eofs-example").click(function () {
     $("#options-ignore-eofs-input").val("2")
 });
