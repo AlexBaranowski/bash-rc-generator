@@ -186,12 +186,19 @@
 
     </div>
 
-    <div class="d-grid mb-3">
-        <button type="button" class="btn btn-outline-success btn-lg" id="generate-button">Generate .bashrc</button>
-    </div>
     <div class="mb-4">
-        <h2>Generated .bashrc</h2>
-        <textarea class="form-control mt-2" rows="14" id="generated-bashrc" spellcheck="false"></textarea>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="mb-0">Generated .bashrc</h2>
+            <div class="btn-group">
+                <button type="button" class="btn btn-outline-secondary" id="copy-button">
+                    📋 Copy
+                </button>
+                <button type="button" class="btn btn-outline-secondary" id="download-button">
+                    ⬇ Download
+                </button>
+            </div>
+        </div>
+        <textarea class="form-control" rows="14" id="generated-bashrc" spellcheck="false" readonly></textarea>
     </div>
 </div>
 

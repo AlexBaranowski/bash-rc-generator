@@ -7,7 +7,8 @@
 const el  = (id) => document.getElementById(id);
 const val = (id) => el(id).value;
 const chk = (id) => el(id).checked;
-const set = (id, v) => { el(id).value = v; };
+// set() dispatches 'input' so live-preview picks up example-button clicks automatically
+const set = (id, v) => { el(id).value = v; el(id).dispatchEvent(new Event('input')); };
 const on  = (id, fn) => el(id).addEventListener('click', fn);
 
 // ── History example buttons ──────────────────────────────────────────────────
@@ -34,7 +35,7 @@ on('options-logout-timer-example', () => set('options-logout-timer-input', '3600
 on('options-ignore-eofs-example',  () => set('options-ignore-eofs-input', '2'));
 
 // ── Generate ─────────────────────────────────────────────────────────────────
-on('generate-button', function () {
+function generateBashrc() {
     const generated_results = [
         '# Generated with bashrc generator: https://alexbaranowski.github.io/bash-rc-generator/'
     ];
@@ -140,4 +141,54 @@ on('generate-button', function () {
     }
 
     el('generated-bashrc').value = generated_results.join('\n');
+}
+
+// ── Live preview ─────────────────────────────────────────────────────────────
+// Re-generate whenever any input or checkbox changes
+const livePreviewIds = [
+    'history-file-size-input', 'history-size-input', 'history-ignore-input',
+    'history-histcontrol-input', 'history-time-format-input', 'history-file-input',
+    'history-append-checkbox', 'history-shared-checkbox',
+    'alias-popd-pushd-checkbox', 'alias-cd-checkbox', 'alias-safer-checkbox',
+    'alias-sudo-checkbox', 'alias-mkdir-checkbox', 'alias-vim-checkbox',
+    'alias-greps-checkbox', 'alias-colordiff-checkbox', 'alias-copy-and-paste-checkbox',
+    'alias-now-checkbox', 'alias-my-ip-checkbox',
+    'options-editor-input', 'options-pager-input', 'options-logout-timer-input',
+    'options-mesg-n-checkbox', 'options-checkwinsize-checkbox', 'options-ignore-eofs-input',
+];
+livePreviewIds.forEach(id => {
+    el(id).addEventListener('input',  generateBashrc);
+    el(id).addEventListener('change', generateBashrc);
 });
+
+// ── Copy to clipboard ────────────────────────────────────────────────────────
+on('copy-button', function () {
+    const text = el('generated-bashrc').value;
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = el('copy-button');
+        const original = btn.innerHTML;
+        btn.innerHTML = '✓ Copied!';
+        btn.classList.replace('btn-outline-secondary', 'btn-success');
+        setTimeout(() => {
+            btn.innerHTML = original;
+            btn.classList.replace('btn-success', 'btn-outline-secondary');
+        }, 2000);
+    });
+});
+
+// ── Download ─────────────────────────────────────────────────────────────────
+on('download-button', function () {
+    const text = el('generated-bashrc').value;
+    if (!text) return;
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = '.bashrc';
+    a.click();
+    URL.revokeObjectURL(url);
+});
+
+// ── Initial render ───────────────────────────────────────────────────────────
+generateBashrc();
