@@ -43,6 +43,10 @@
 
         <!-- History -->
         <div class="tab-pane fade show active p-4" id="history-pane" role="tabpanel" aria-labelledby="history-tab">
+            <div class="d-flex gap-2 mb-4">
+                <button type="button" class="btn btn-sm btn-outline-success" id="history-select-all">☑ Select All</button>
+                <button type="button" class="btn btn-sm btn-outline-warning" id="history-deselect-all">☐ Deselect All</button>
+            </div>
             <h4>HISTFILESIZE</h4>
             <div class="row mb-3">
                 <div class="col-8"><input type="number" min="0" class="form-control" id="history-file-size-input"></div>
@@ -93,6 +97,10 @@
 
         <!-- Aliases -->
         <div class="tab-pane fade p-4" id="aliases-pane" role="tabpanel" aria-labelledby="aliases-tab">
+            <div class="d-flex gap-2 mb-4">
+                <button type="button" class="btn btn-sm btn-outline-success" id="aliases-select-all">☑ Select All</button>
+                <button type="button" class="btn btn-sm btn-outline-warning" id="aliases-deselect-all">☐ Deselect All</button>
+            </div>
             <h4>Enable pushd, popd acting as cd</h4>
             <div class="form-check form-switch mb-3">
                 <input class="form-check-input" type="checkbox" role="switch" id="alias-popd-pushd-checkbox" checked>
@@ -141,6 +149,10 @@
 
         <!-- Options -->
         <div class="tab-pane fade p-4" id="options-pane" role="tabpanel" aria-labelledby="options-tab">
+            <div class="d-flex gap-2 mb-4">
+                <button type="button" class="btn btn-sm btn-outline-success" id="options-select-all">☑ Select All</button>
+                <button type="button" class="btn btn-sm btn-outline-warning" id="options-deselect-all">☐ Deselect All</button>
+            </div>
             <h4>EDITOR and VISUAL</h4>
             <div class="row mb-3">
                 <div class="col-4"><input type="text" class="form-control" id="options-editor-input"></div>
@@ -184,6 +196,10 @@
             </div>
         </div>
 
+    </div>
+
+    <div class="d-grid mb-3">
+        <button type="button" class="btn btn-outline-danger" id="reset-all-button">↺ Reset All</button>
     </div>
 
     <div class="mb-4">

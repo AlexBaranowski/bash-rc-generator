@@ -161,6 +161,32 @@ livePreviewIds.forEach(id => {
     el(id).addEventListener('change', generateBashrc);
 });
 
+// ── Select All / Deselect All per tab ────────────────────────────────────────
+function setAllCheckboxes(paneId, state) {
+    document.querySelectorAll(`#${paneId} input[type="checkbox"]`).forEach(cb => {
+        cb.checked = state;
+    });
+    generateBashrc();
+}
+
+on('history-select-all',   () => setAllCheckboxes('history-pane', true));
+on('history-deselect-all', () => setAllCheckboxes('history-pane', false));
+on('aliases-select-all',   () => setAllCheckboxes('aliases-pane', true));
+on('aliases-deselect-all', () => setAllCheckboxes('aliases-pane', false));
+on('options-select-all',   () => setAllCheckboxes('options-pane', true));
+on('options-deselect-all', () => setAllCheckboxes('options-pane', false));
+
+// ── Reset All ────────────────────────────────────────────────────────────────
+on('reset-all-button', function () {
+    // Clear every text / number input inside the tab panels
+    document.querySelectorAll('#configTabsContent input[type="text"], #configTabsContent input[type="number"]')
+        .forEach(input => { input.value = ''; });
+    // Restore all checkboxes to their default (all on)
+    document.querySelectorAll('#configTabsContent input[type="checkbox"]')
+        .forEach(cb => { cb.checked = true; });
+    generateBashrc();
+});
+
 // ── Copy to clipboard ────────────────────────────────────────────────────────
 on('copy-button', function () {
     const text = el('generated-bashrc').value;
