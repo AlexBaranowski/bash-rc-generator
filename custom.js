@@ -34,6 +34,65 @@ on('options-pager-most',   () => set('options-pager-input', 'most'));
 on('options-logout-timer-example', () => set('options-logout-timer-input', '3600'));
 on('options-ignore-eofs-example',  () => set('options-ignore-eofs-input', '2'));
 
+// ── localStorage persistence ─────────────────────────────────────────────────
+const STORAGE_KEY = 'bashrc-generator-v1';
+
+const persistableFields = [
+    // text / number inputs
+    { id: 'history-file-size-input',         type: 'value'   },
+    { id: 'history-size-input',              type: 'value'   },
+    { id: 'history-ignore-input',            type: 'value'   },
+    { id: 'history-histcontrol-input',       type: 'value'   },
+    { id: 'history-time-format-input',       type: 'value'   },
+    { id: 'history-file-input',              type: 'value'   },
+    { id: 'options-editor-input',            type: 'value'   },
+    { id: 'options-pager-input',             type: 'value'   },
+    { id: 'options-logout-timer-input',      type: 'value'   },
+    { id: 'options-ignore-eofs-input',       type: 'value'   },
+    // checkboxes
+    { id: 'history-append-checkbox',         type: 'checked' },
+    { id: 'history-shared-checkbox',         type: 'checked' },
+    { id: 'alias-popd-pushd-checkbox',       type: 'checked' },
+    { id: 'alias-cd-checkbox',               type: 'checked' },
+    { id: 'alias-safer-checkbox',            type: 'checked' },
+    { id: 'alias-sudo-checkbox',             type: 'checked' },
+    { id: 'alias-mkdir-checkbox',            type: 'checked' },
+    { id: 'alias-vim-checkbox',              type: 'checked' },
+    { id: 'alias-greps-checkbox',            type: 'checked' },
+    { id: 'alias-colordiff-checkbox',        type: 'checked' },
+    { id: 'alias-copy-and-paste-checkbox',   type: 'checked' },
+    { id: 'alias-now-checkbox',              type: 'checked' },
+    { id: 'alias-my-ip-checkbox',            type: 'checked' },
+    { id: 'options-mesg-n-checkbox',         type: 'checked' },
+    { id: 'options-checkwinsize-checkbox',   type: 'checked' },
+];
+
+function saveState() {
+    const state = {};
+    persistableFields.forEach(({ id, type }) => {
+        state[id] = type === 'checked' ? el(id).checked : el(id).value;
+    });
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (_) {}
+}
+
+function loadState() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const state = JSON.parse(raw);
+        persistableFields.forEach(({ id, type }) => {
+            if (state[id] === undefined) return;
+            if (type === 'checked') {
+                el(id).checked = Boolean(state[id]);
+            } else {
+                el(id).value = state[id];
+            }
+        });
+    } catch (_) {
+        localStorage.removeItem(STORAGE_KEY);
+    }
+}
+
 // ── Generate ─────────────────────────────────────────────────────────────────
 function generateBashrc() {
     const generated_results = [
@@ -141,6 +200,7 @@ function generateBashrc() {
     }
 
     el('generated-bashrc').value = generated_results.join('\n');
+    saveState();
 }
 
 // ── Live preview ─────────────────────────────────────────────────────────────
@@ -217,4 +277,5 @@ on('download-button', function () {
 });
 
 // ── Initial render ───────────────────────────────────────────────────────────
+loadState();
 generateBashrc();
