@@ -80,6 +80,19 @@ const persistableFields = [
     { id: 'prompt-color-directory',          type: 'value'   },
     { id: 'prompt-separator-main',           type: 'value'   },
     { id: 'prompt-separator-path',           type: 'value'   },
+    // advanced - PATH
+    { id: 'path-prepend-input',              type: 'value'   },
+    { id: 'path-append-input',               type: 'value'   },
+    // advanced - shopt
+    { id: 'shopt-globstar-checkbox',         type: 'checked' },
+    { id: 'shopt-extglob-checkbox',          type: 'checked' },
+    { id: 'shopt-nocaseglob-checkbox',       type: 'checked' },
+    { id: 'shopt-autocd-checkbox',           type: 'checked' },
+    { id: 'shopt-cdspell-checkbox',          type: 'checked' },
+    { id: 'shopt-dirspell-checkbox',         type: 'checked' },
+    { id: 'shopt-dotglob-checkbox',          type: 'checked' },
+    { id: 'shopt-nullglob-checkbox',         type: 'checked' },
+    { id: 'shopt-cdable-vars-checkbox',      type: 'checked' },
 ];
 
 function saveState() {
@@ -312,6 +325,31 @@ function generateBashrc() {
     const ps1 = generatePS1();
     const prompt_output = ps1 ? `export PS1='${ps1}'` : null;
 
+    // PATH Management
+    const path_prepend = val('path-prepend-input');
+    const path_append = val('path-append-input');
+    const path_strings = [];
+    if (path_prepend) {
+        path_strings.push(`export PATH="${path_prepend}:$PATH"`);
+    }
+    if (path_append) {
+        path_strings.push(`export PATH="$PATH:${path_append}"`);
+    }
+
+    // Shell Options (shopt)
+    const shopt_options = [
+        [chk('shopt-globstar-checkbox'),      'globstar'],
+        [chk('shopt-extglob-checkbox'),       'extglob'],
+        [chk('shopt-nocaseglob-checkbox'),    'nocaseglob'],
+        [chk('shopt-autocd-checkbox'),        'autocd'],
+        [chk('shopt-cdspell-checkbox'),       'cdspell'],
+        [chk('shopt-dirspell-checkbox'),      'dirspell'],
+        [chk('shopt-dotglob-checkbox'),       'dotglob'],
+        [chk('shopt-nullglob-checkbox'),      'nullglob'],
+        [chk('shopt-cdable-vars-checkbox'),   'cdable_vars'],
+    ];
+    const shopt_strings = shopt_options.filter(([enabled]) => enabled).map(([, opt]) => `shopt -s ${opt}`);
+
     if (hist_strings.length > 0) {
         generated_results.push('\n# History Settings');
         generated_results.push(hist_strings.join('\n'));
@@ -327,6 +365,14 @@ function generateBashrc() {
     if (prompt_output) {
         generated_results.push('\n# Custom Prompt');
         generated_results.push(prompt_output);
+    }
+    if (path_strings.length > 0) {
+        generated_results.push('\n# PATH Management');
+        generated_results.push(path_strings.join('\n'));
+    }
+    if (shopt_strings.length > 0) {
+        generated_results.push('\n# Shell Options');
+        generated_results.push(shopt_strings.join('\n'));
     }
 
     el('generated-bashrc').value = generated_results.join('\n');
@@ -353,6 +399,10 @@ const livePreviewIds = [
     'prompt-separator-main', 'prompt-separator-path',
     'prompt-hostname-full', 'prompt-hostname-short',
     'prompt-directory-full', 'prompt-directory-basename',
+    'path-prepend-input', 'path-append-input',
+    'shopt-globstar-checkbox', 'shopt-extglob-checkbox', 'shopt-nocaseglob-checkbox',
+    'shopt-autocd-checkbox', 'shopt-cdspell-checkbox', 'shopt-dirspell-checkbox',
+    'shopt-dotglob-checkbox', 'shopt-nullglob-checkbox', 'shopt-cdable-vars-checkbox',
 ];
 livePreviewIds.forEach(id => {
     el(id).addEventListener('input',  generateBashrc);
@@ -375,6 +425,8 @@ on('options-select-all',   () => setAllCheckboxes('options-pane', true));
 on('options-deselect-all', () => setAllCheckboxes('options-pane', false));
 on('prompt-select-all',    () => setAllCheckboxes('prompt-pane', true));
 on('prompt-deselect-all',  () => setAllCheckboxes('prompt-pane', false));
+on('advanced-select-all',  () => setAllCheckboxes('advanced-pane', true));
+on('advanced-deselect-all',() => setAllCheckboxes('advanced-pane', false));
 
 // ── Reset All ────────────────────────────────────────────────────────────────
 on('reset-all-button', function () {

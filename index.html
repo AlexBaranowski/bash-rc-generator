@@ -40,6 +40,10 @@
             <button class="nav-link" id="prompt-tab" data-bs-toggle="tab" data-bs-target="#prompt-pane"
                     type="button" role="tab" aria-controls="prompt-pane" aria-selected="false">Prompt</button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced-pane"
+                    type="button" role="tab" aria-controls="advanced-pane" aria-selected="false">Advanced</button>
+        </li>
     </ul>
 
     <!-- Tab content -->
@@ -358,6 +362,83 @@
             </div>
         </div>
 
+        <!-- Advanced -->
+        <div class="tab-pane fade p-4" id="advanced-pane" role="tabpanel" aria-labelledby="advanced-tab">
+            <div class="d-flex gap-2 mb-4">
+                <button type="button" class="btn btn-sm btn-success" id="advanced-select-all">☑ Select All</button>
+                <button type="button" class="btn btn-sm btn-warning" id="advanced-deselect-all">☐ Deselect All</button>
+            </div>
+
+            <h3 class="mb-3">PATH Management</h3>
+
+            <h4>Prepend to PATH</h4>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <input type="text" class="form-control" id="path-prepend-input"
+                           placeholder="e.g., /usr/local/bin:$HOME/bin">
+                    <small class="form-text text-muted">Separate multiple paths with colons (:)</small>
+                </div>
+            </div>
+
+            <h4>Append to PATH</h4>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <input type="text" class="form-control" id="path-append-input"
+                           placeholder="e.g., $HOME/.local/bin">
+                    <small class="form-text text-muted">Separate multiple paths with colons (:)</small>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <h3 class="mb-3">Shell Options (shopt)</h3>
+
+            <h4>Enable globstar (recursive ** wildcards)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-globstar-checkbox">
+            </div>
+
+            <h4>Enable extglob (extended pattern matching)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-extglob-checkbox">
+            </div>
+
+            <h4>Enable nocaseglob (case-insensitive globbing)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-nocaseglob-checkbox">
+            </div>
+
+            <h4>Enable autocd (cd by typing directory name)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-autocd-checkbox">
+            </div>
+
+            <h4>Enable cdspell (auto-correct minor typos in cd)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-cdspell-checkbox">
+            </div>
+
+            <h4>Enable dirspell (auto-correct directory names during completion)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-dirspell-checkbox">
+            </div>
+
+            <h4>Enable dotglob (include hidden files in wildcards)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-dotglob-checkbox">
+            </div>
+
+            <h4>Enable nullglob (unmatched patterns expand to nothing)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-nullglob-checkbox">
+            </div>
+
+            <h4>Enable cdable_vars (cd to variables as directories)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-cdable-vars-checkbox">
+            </div>
+        </div>
+
     </div>
 
     <div class="d-grid mb-3">
@@ -563,6 +644,142 @@
                 actually exiting. Setting it to <code>2</code> means you must press
                 <kbd>Ctrl-D</kbd> three times in a row to quit, preventing accidental logouts.
                 <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+        </dl>
+
+        <!-- Prompt -->
+        <h3 class="mt-4 mb-3">Prompt (PS1)</h3>
+        <dl class="reference-list">
+            <dt>PS1</dt>
+            <dd>The primary prompt string displayed before each command. Bash interprets
+                special escape sequences like <code>\u</code> (username), <code>\h</code>
+                (hostname), <code>\w</code> (working directory), and <code>\$</code> ($ for
+                users, # for root).
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Controlling-the-Prompt" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>Username (\u)</dt>
+            <dd>Expands to the current username. Useful for identifying which account you're
+                logged in as, especially in multi-user environments or when using <code>su</code>.
+            </dd>
+
+            <dt>Hostname (\h / \H)</dt>
+            <dd><code>\h</code> shows the short hostname (up to the first dot);
+                <code>\H</code> shows the fully-qualified domain name. Helps you remember
+                which machine you're working on when managing multiple servers.
+            </dd>
+
+            <dt>Directory (\w / \W)</dt>
+            <dd><code>\w</code> displays the full current working directory path with
+                <code>~</code> shorthand for home; <code>\W</code> shows only the basename
+                (final directory component). Essential for navigation context.
+            </dd>
+
+            <dt>Exit Code</dt>
+            <dd>Conditional display using command substitution to show the previous command's
+                exit status only when non-zero. Helps catch errors without cluttering the prompt.
+            </dd>
+
+            <dt>Timestamp (\D{format})</dt>
+            <dd>Inserts the current date/time formatted per <code>strftime</code>.
+                Useful for timestamping terminal sessions or correlating shell activity with logs.
+            </dd>
+
+            <dt>ANSI Colors</dt>
+            <dd>Escape sequences <code>\[\e[...m\]</code> set text color/style. The
+                <code>\[...\]</code> brackets tell readline to ignore non-printing characters
+                so line wrapping and editing work correctly.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Controlling-the-Prompt" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+        </dl>
+
+        <!-- PATH -->
+        <h3 class="mt-4 mb-3">PATH Management</h3>
+        <dl class="reference-list">
+            <dt>PATH</dt>
+            <dd>Colon-separated list of directories where Bash searches for executables. When
+                you type a command name, Bash checks each PATH directory in order until it finds
+                a matching executable (or reports "command not found").
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>Prepend to PATH</dt>
+            <dd>Adding directories at the <em>start</em> of PATH gives them highest priority.
+                Use this for custom tools or newer versions that should override system defaults.
+                Example: <code>export PATH="/usr/local/bin:$PATH"</code>
+            </dd>
+
+            <dt>Append to PATH</dt>
+            <dd>Adding directories at the <em>end</em> of PATH gives them lowest priority, used
+                only if the command isn't found earlier. Safe for optional tools or fallback
+                locations. Example: <code>export PATH="$PATH:$HOME/.local/bin"</code>
+            </dd>
+        </dl>
+
+        <!-- Shell Options -->
+        <h3 class="mt-4 mb-3">Shell Options (shopt)</h3>
+        <dl class="reference-list">
+            <dt>globstar</dt>
+            <dd>Enables the <code>**</code> glob pattern to match all files and directories
+                recursively. <code>**/*.txt</code> finds every .txt file in the current tree.
+                Requires Bash 4.0+.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>extglob</dt>
+            <dd>Enables extended pattern matching operators: <code>?(pattern)</code> (zero or one),
+                <code>*(pattern)</code> (zero or more), <code>+(pattern)</code> (one or more),
+                <code>@(pattern)</code> (exactly one), <code>!(pattern)</code> (anything except).
+                Powerful for complex filename filters.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>nocaseglob</dt>
+            <dd>Makes filename globbing case-insensitive. <code>*.TXT</code> matches
+                <code>readme.txt</code>, <code>README.TXT</code>, etc. Useful on
+                case-insensitive filesystems or when dealing with inconsistent naming.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>autocd</dt>
+            <dd>Typing a directory name alone (no <code>cd</code> command) automatically
+                changes to that directory. <code>/etc</code> becomes equivalent to
+                <code>cd /etc</code>. Requires Bash 4.0+.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>cdspell</dt>
+            <dd>Auto-corrects minor spelling mistakes in <code>cd</code> arguments: transposed
+                characters, missing characters, or one extra character. Helps when you type
+                <code>cd /sur/local/bin</code> instead of <code>/usr/local/bin</code>.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>dirspell</dt>
+            <dd>Auto-corrects directory name spelling during tab completion (similar to
+                <code>cdspell</code> but for readline). Requires Bash 4.0+.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>dotglob</dt>
+            <dd>Includes files starting with <code>.</code> (hidden files) in glob expansion.
+                Without this, <code>*</code> skips <code>.bashrc</code>, <code>.config</code>, etc.
+                Useful for operations on all files including hidden ones.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>nullglob</dt>
+            <dd>When a glob pattern has no matches, it expands to nothing (empty string) instead
+                of the literal pattern. Prevents errors in <code>for</code> loops when no files
+                match. Use carefully—can cause unexpected behavior if not handled.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>cdable_vars</dt>
+            <dd>If <code>cd</code> argument isn't a directory, treat it as a variable name and
+                <code>cd</code> to that variable's value. Lets you define shortcuts:
+                <code>export proj="$HOME/projects"; cd proj</code>.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
             </dd>
         </dl>
     </section>
