@@ -169,10 +169,10 @@ on('copy-button', function () {
         const btn = el('copy-button');
         const original = btn.innerHTML;
         btn.innerHTML = '✓ Copied!';
-        btn.classList.replace('btn-outline-secondary', 'btn-success');
+        btn.classList.replace('btn-warning', 'btn-success');
         setTimeout(() => {
             btn.innerHTML = original;
-            btn.classList.replace('btn-success', 'btn-outline-secondary');
+            btn.classList.replace('btn-success', 'btn-warning');
         }, 2000);
     });
 });
