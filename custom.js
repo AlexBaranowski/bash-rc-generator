@@ -160,13 +160,13 @@ function generatePS1() {
     // Timestamp
     if (chk('prompt-time-checkbox')) {
         const timeFmt = val('prompt-time-format') || '%H:%M:%S';
-        parts.push(`\\[\\D{${timeFmt}}\\]`);
+        parts.push(`\\D{${timeFmt}}`);
         previewHTML += `<span style="color:#aaa">${new Date().toLocaleTimeString()}</span> `;
     }
 
     // Exit code
     if (chk('prompt-exitcode-checkbox')) {
-        parts.push('\\[$([ $? -eq 0 ] || echo "\\e[0;31m[$?] \\e[0m")\\]');
+        parts.push('$([ $? -eq 0 ] || echo "\\[\\e[0;31m\\][${?}] \\[\\e[0m\\]")');
         previewHTML += '<span style="color:#f55">[1]</span> ';
     }
 
