@@ -1,27 +1,102 @@
 /* 
- * Colors are taken from bootstrap.
- * Check https://pikock.github.io/bootstrap-magic/
+ * Colors are taken from the Bootstrap dark palette.
  */
-body{
-  background-color: #343a40;
-  font-family:courier new,Courier,monospace;
-  color: #2dc04e;
+
+/* CSS custom properties for easy theming */
+:root {
+  --color-bg:       #343a40;
+  --color-surface:  #495057;
+  --color-surface2: #212529;
+  --color-text:     #2dc04e;
+  --color-accent:   #ffc107;
+  --color-footer:   #17a2b8;
 }
 
-.jumbotron{
-  color:#ffc107;
-  background-color:#495057;
+body {
+  background-color: var(--color-bg);
+  font-family: courier new, Courier, monospace;
+  color: var(--color-text);
 }
 
-h1,h2,h3,h4,h5,h6{
-  font-family:courier new,Courier,monospace;
-  font-weight:700;
+/* Hero section — replaces Bootstrap 4 .jumbotron */
+.hero {
+  color: var(--color-accent);
+  background-color: var(--color-surface);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: courier new, Courier, monospace;
+  font-weight: 700;
+}
+
+/* Tabs — match the dark theme */
+.nav-tabs .nav-link {
+  color: var(--color-text);
+}
+.nav-tabs .nav-link.active {
+  background-color: var(--color-surface);
+  border-color: #6c757d #6c757d var(--color-surface);
+  color: var(--color-accent);
+}
+.nav-tabs .nav-link:hover:not(.active) {
+  border-color: #6c757d;
+  color: var(--color-accent);
+}
+.tab-content {
+  background-color: var(--color-surface);
 }
 
 .footer {
-  background-color:#212529;
-  color:#17a2b8;
+  background-color: var(--color-surface2);
+  color: var(--color-footer);
 }
-.footer a:active{
+.footer a {
+  color: var(--color-footer);
+}
+.footer a:active {
   color: #105261;
+}
+
+/* Options Reference section */
+#options-reference h2,
+#options-reference h3 {
+  color: var(--color-accent);
+}
+
+#options-reference > p a {
+  color: var(--color-footer);
+}
+
+.reference-list {
+  border-left: 3px solid var(--color-surface);
+  padding-left: 1rem;
+}
+
+.reference-list dt {
+  color: var(--color-accent);
+  font-weight: 700;
+  margin-top: 1.1rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+}
+
+.reference-list dd {
+  margin-left: 0;
+  margin-top: 0.25rem;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.reference-list dd code,
+.reference-list dd kbd {
+  background-color: var(--color-surface2);
+  color: var(--color-accent);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.reference-list a {
+  color: var(--color-footer);
+  white-space: nowrap;
 }

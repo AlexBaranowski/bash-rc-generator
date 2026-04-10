@@ -2,70 +2,105 @@
 <html lang="en" class="h-100">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--<meta name="description" content="">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Free online .bashrc generator for Linux and macOS. Create custom bash configuration with history settings, aliases, PS1 prompt builder, shell options (shopt), PATH management, and debug tools. Generate professional bashrc files instantly.">
     <meta name="author" content="Alex Baranowski">
-    <title>.bashrc generator</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Bootrap toggle -->
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <!-- Font awesome for Amazon and help FIXME add help messages, with some magic ?alerts?-->
-    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">-->
-    <!-- Local css -->
-    <link rel="stylesheet" href="./customstyle.css" >
+    <meta name="keywords" content="bashrc generator, bash configuration, .bashrc, linux terminal, shell configuration, bash prompt, PS1 builder, bash aliases, bash history, shell options, shopt, bash customization">
 
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alexbaranowski.github.io/bash-rc-generator/">
+    <meta property="og:title" content=".bashrc Generator - Create Custom Bash Configuration Online">
+    <meta property="og:description" content="Free online tool to generate professional .bashrc files. Visual prompt builder, aliases, history settings, shell options, and more. No installation required.">
+    <meta property="og:site_name" content=".bashrc Generator">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content=".bashrc Generator - Create Custom Bash Configuration Online">
+    <meta name="twitter:description" content="Free online tool to generate professional .bashrc files. Visual prompt builder, aliases, history settings, shell options, and more.">
+
+    <title>.bashrc Generator - Create Custom Bash Configuration Online | Free Tool</title>
+    <link rel="canonical" href="https://alexbaranowski.github.io/bash-rc-generator/">
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Local css -->
+    <link rel="stylesheet" href="./customstyle.css">
 </head>
 <body class="d-flex flex-column h-100">
-<a href="https://github.com/AlexBaranowski/bash-rc-generator" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+<a href="https://github.com/AlexBaranowski/bash-rc-generator" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+<style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
 <div class="container">
-    <div class="jumbotron">
-        <h1>Welcome to .bashrc generator!</h1>
-        <p>Advanced Bash configuration made eazy.</p>
-
+    <div class="hero rounded mb-4 p-4">
+        <h1>Welcome to .bashrc Generator</h1>
+        <p class="lead mb-3">Create professional Bash configuration files with our free online tool. Customize your Linux & macOS terminal experience in minutes.</p>
+        <p class="mb-2">✨ <strong>Visual Prompt Builder</strong> with live preview | 🔧 <strong>Shell Options & Aliases</strong> | 📊 <strong>History Management</strong> | 🐛 <strong>Debug Tools</strong></p>
+        <p class="mb-0"><small>No installation required. Generate, download, and copy your custom <code>.bashrc</code> instantly.</small></p>
     </div>
-    <div id="accordion">
-        <h2>History config &#9660;</h2>
-        <div class='settings'>
 
+    <div class="mb-4">
+        <p>
+            Configure your bash shell with powerful features including command history management,
+            time-saving aliases, customizable PS1 prompts, advanced shell options (shopt),
+            PATH customization, and debugging tools. Perfect for developers, sysadmins,
+            and power users who want to optimize their terminal workflow.
+        </p>
+    </div>
 
+    <!-- Tabs navigation -->
+    <ul class="nav nav-tabs" id="configTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="history-tab" data-bs-toggle="tab" data-bs-target="#history-pane"
+                    type="button" role="tab" aria-controls="history-pane" aria-selected="true">History</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="aliases-tab" data-bs-toggle="tab" data-bs-target="#aliases-pane"
+                    type="button" role="tab" aria-controls="aliases-pane" aria-selected="false">Aliases</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="options-tab" data-bs-toggle="tab" data-bs-target="#options-pane"
+                    type="button" role="tab" aria-controls="options-pane" aria-selected="false">Options</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="prompt-tab" data-bs-toggle="tab" data-bs-target="#prompt-pane"
+                    type="button" role="tab" aria-controls="prompt-pane" aria-selected="false">Prompt</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced-pane"
+                    type="button" role="tab" aria-controls="advanced-pane" aria-selected="false">Advanced</button>
+        </li>
+    </ul>
 
-            <h4 for="history-file-size" >HISTFILESIZE </h4>
-            <div class="form-group row">
-                <div class="col-8">
-                    <input type="number" min="0" class="form-control" id="history-file-size-input">
-                </div>
-                <div class="col-4">
-                    <button class="btn btn-info" type="button" id="history-file-size-example">Example</button>
-                </div>
+    <!-- Tab content -->
+    <div class="tab-content border border-top-0 rounded-bottom mb-3" id="configTabsContent">
+
+        <!-- History -->
+        <div class="tab-pane fade show active p-4" id="history-pane" role="tabpanel" aria-labelledby="history-tab">
+            <div class="d-flex gap-2 mb-4">
+                <button type="button" class="btn btn-sm btn-success" id="history-select-all">☑ Select All</button>
+                <button type="button" class="btn btn-sm btn-warning" id="history-deselect-all">☐ Deselect All</button>
             </div>
-
-            <h4 for="history-size" >HISTSIZE</h4>
-            <div class="form-group row">
-                <div class="col-8">
-                    <input type="number" min="0" class="form-control" id="history-size-input">
-                </div>
-                <div class="col-4">
-                    <button class="btn btn-info" type="button" id="history-size-example">Example</button>
-                </div>
+            <h4>HISTFILESIZE</h4>
+            <div class="row mb-3">
+                <div class="col-8"><input type="number" min="0" class="form-control" id="history-file-size-input"></div>
+                <div class="col-4"><button class="btn btn-info w-100" type="button" id="history-file-size-example">Example</button></div>
             </div>
-
-            <h4 for="history-time-format" >HISTIGNORE</h4>
-            <div class="form-group row">
-                <div class="col-8">
-                    <input type="text" class="form-control" id="history-ignore-input">
-                </div>
-                <div class="col-4">
-                    <button class="btn btn-info" type="button" id="history-ignore-example">Example</button>
-                </div>
+            <h4>HISTSIZE</h4>
+            <div class="row mb-3">
+                <div class="col-8"><input type="number" min="0" class="form-control" id="history-size-input"></div>
+                <div class="col-4"><button class="btn btn-info w-100" type="button" id="history-size-example">Example</button></div>
+            </div>
+            <h4>HISTIGNORE</h4>
+            <div class="row mb-3">
+                <div class="col-8"><input type="text" class="form-control" id="history-ignore-input"></div>
+                <div class="col-4"><button class="btn btn-info w-100" type="button" id="history-ignore-example">Example</button></div>
             </div>
             <h4>HISTCONTROL</h4>
-            <div class="form-group row">
-                <div class="col-3">
-                    <input type="text" class="form-control" id="history-histcontrol-input">
-                </div>
-                <div class="btn-toolbar col-9" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <div class="row mb-3">
+                <div class="col-3"><input type="text" class="form-control" id="history-histcontrol-input"></div>
+                <div class="col-9">
+                    <div class="btn-group flex-wrap" role="group" aria-label="HISTCONTROL presets">
                         <button type="button" class="btn btn-secondary" id="history-histcontrol-example-none">None</button>
                         <button type="button" class="btn btn-secondary" id="history-histcontrol-example-ignoreboth">ignoreboth</button>
                         <button type="button" class="btn btn-secondary" id="history-histcontrol-example-ignorespace">ignorespace</button>
@@ -74,159 +109,770 @@
                     </div>
                 </div>
             </div>
-
-            <h4 for="history-time-format" >HISTTIMEFORMAT</h4>
-            <div class="form-group row">
-                <div class="col-8">
-                    <input type="text" class="form-control" id="history-time-format-input" pattern=".* " title="HISTTIMEFORMAT should ends with space">
-                </div>
-                <div class="col-4">
-                    <button class="btn btn-info" type="button" id="history-time-format-example">Example</button>
-                </div>
+            <h4>HISTTIMEFORMAT</h4>
+            <div class="row mb-3">
+                <div class="col-8"><input type="text" class="form-control" id="history-time-format-input" pattern=".* " title="HISTTIMEFORMAT should end with a space"></div>
+                <div class="col-4"><button class="btn btn-info w-100" type="button" id="history-time-format-example">Example</button></div>
             </div>
-
-            <h4 for="history-file-input" >HISTFILE</h4>
-            <div class="form-group row">
-                <div class="col-8">
-                    <input type="text" class="form-control" id="history-file-input">
-
-                </div>
-                <div class="col-4">
-                    <button class="btn btn-info" type="button" id="history-file-example">Example</button>
-                </div>
+            <h4>HISTFILE</h4>
+            <div class="row mb-3">
+                <div class="col-8"><input type="text" class="form-control" id="history-file-input"></div>
+                <div class="col-4"><button class="btn btn-info w-100" type="button" id="history-file-example">Example</button></div>
             </div>
             <h4>Enable appending to history</h4>
-            <div class="form-group row col-4">
-                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="history-append-checkbox">
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="history-append-checkbox" checked>
             </div>
             <h4>Enable shared history</h4>
-            <div class="form-group row col-4">
-                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="history-shared-checkbox">
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="history-shared-checkbox" checked>
             </div>
         </div>
-        <h2>Aliases &#9660;</h2>
-        <div class='settings'>
+
+        <!-- Aliases -->
+        <div class="tab-pane fade p-4" id="aliases-pane" role="tabpanel" aria-labelledby="aliases-tab">
+            <div class="d-flex gap-2 mb-4">
+                <button type="button" class="btn btn-sm btn-success" id="aliases-select-all">☑ Select All</button>
+                <button type="button" class="btn btn-sm btn-warning" id="aliases-deselect-all">☐ Deselect All</button>
+            </div>
             <h4>Enable pushd, popd acting as cd</h4>
-            <div class="form-group row col-4">
-                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-popd-pushd-checkbox">
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="alias-popd-pushd-checkbox" checked>
             </div>
             <h4>Enable cd aliases</h4>
-            <div class="form-group row col-4">
-                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-cd-checkbox">
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="alias-cd-checkbox" checked>
             </div>
-            <h4>Enable safer {rm,mv,cp,ln} command</h4>
-            <div class="form-group row col-4">
-                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-safer-checkbox">
+            <h4>Enable safer {rm,mv,cp,ln} commands</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="alias-safer-checkbox" checked>
             </div>
             <h4>Enable sudo expanding aliases</h4>
-            <div class="form-group row col-4">
-                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-sudo-checkbox">
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="alias-sudo-checkbox" checked>
             </div>
-            <h4>Enable mkdir with parrent and verbose aliase</h4>
-            <div class="form-group row col-4">
-                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-mkdir-checkbox">
+            <h4>Enable mkdir with parent and verbose aliases</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="alias-mkdir-checkbox" checked>
             </div>
             <h4>Enable vi -> vim alias</h4>
-            <div class="form-group row col-4">
-                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-vim-checkbox">
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="alias-vim-checkbox" checked>
             </div>
             <h4>Enable colorized greps</h4>
-            <div class="form-group row col-4">
-                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-greps-checkbox">
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="alias-greps-checkbox" checked>
             </div>
             <h4>Enable diff->colordiff alias</h4>
-            <div class="form-group row col-4">
-                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-colordiff-checkbox">
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="alias-colordiff-checkbox" checked>
             </div>
-            <h4>Enable pbcopy pbpaste (requires xclip)</h4>
-            <div class="form-group row col-4">
-                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-copy-and-paste-checkbox">
+            <h4>Enable pbcopy / pbpaste (requires xclip)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="alias-copy-and-paste-checkbox" checked>
             </div>
             <h4>Enable now alias</h4>
-            <div class="form-group row col-4">
-                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-now-checkbox">
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="alias-now-checkbox" checked>
             </div>
             <h4>Enable my_ip alias</h4>
-            <div class="form-group row col-4">
-                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="alias-my-ip-checkbox">
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="alias-my-ip-checkbox" checked>
             </div>
-
         </div>
-        <h2>Options &#9660;</h2>
-        <div class='settings'>
+
+        <!-- Options -->
+        <div class="tab-pane fade p-4" id="options-pane" role="tabpanel" aria-labelledby="options-tab">
+            <div class="d-flex gap-2 mb-4">
+                <button type="button" class="btn btn-sm btn-success" id="options-select-all">☑ Select All</button>
+                <button type="button" class="btn btn-sm btn-warning" id="options-deselect-all">☐ Deselect All</button>
+            </div>
             <h4>EDITOR and VISUAL</h4>
-            <div class="form-group row">
-                <div class="col-4">
-                    <input type="text" class="form-control" id="options-editor-input">
-                </div>
-                <div class="btn-toolbar col-8" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group mr-2" role="group" aria-label="First group">
-                        <button type="button" class="btn btn-secondary" id="options-editor-none">None (emacs)(default)</button>
+            <div class="row mb-3">
+                <div class="col-4"><input type="text" class="form-control" id="options-editor-input"></div>
+                <div class="col-8">
+                    <div class="btn-group flex-wrap" role="group" aria-label="Editor presets">
+                        <button type="button" class="btn btn-secondary" id="options-editor-none">None / emacs (default)</button>
                         <button type="button" class="btn btn-secondary" id="options-editor-vi">vi</button>
-                        <button type="button" class="btn btn-secondary" id="options-editor-vim">vim(recommended)</button>
+                        <button type="button" class="btn btn-secondary" id="options-editor-vim">vim (recommended)</button>
                         <button type="button" class="btn btn-secondary" id="options-editor-nano">nano</button>
                     </div>
                 </div>
             </div>
             <h4>PAGER</h4>
-            <div class="form-group row">
-                <div class="col-4">
-                    <input type="text" class="form-control" id="options-pager-input">
-                </div>
-                <div class="btn-toolbar col-8" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group mr-2" role="group" aria-label="First group">
-                        <button type="button" class="btn btn-secondary" id="options-pager-none">None (more)(default)</button>
+            <div class="row mb-3">
+                <div class="col-4"><input type="text" class="form-control" id="options-pager-input"></div>
+                <div class="col-8">
+                    <div class="btn-group" role="group" aria-label="Pager presets">
+                        <button type="button" class="btn btn-secondary" id="options-pager-none">None / more (default)</button>
                         <button type="button" class="btn btn-secondary" id="options-pager-less">less</button>
                         <button type="button" class="btn btn-secondary" id="options-pager-most">most</button>
                     </div>
                 </div>
             </div>
-            <h4>Auto Logout Timeout</h4>
-            <div class="form-group row">
-                <div class="col-8">
-                    <input type="number" min="30" class="form-control" id="options-logout-timer-input" title="TODO">
-                </div>
-                <div class="col-4">
-                    <button class="btn btn-info" type="button" id="options-logout-timer-example">Example</button>
-                </div>
+            <h4>Auto Logout Timeout (seconds)</h4>
+            <div class="row mb-3">
+                <div class="col-8"><input type="number" min="30" class="form-control" id="options-logout-timer-input"></div>
+                <div class="col-4"><button class="btn btn-info w-100" type="button" id="options-logout-timer-example">Example</button></div>
             </div>
-            <h4>Disable access to write to your terminal</h4>
-            <div class="form-group row col-4">
-                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="options-mesg-n-checkbox">
+            <h4>Disable write access to your terminal (mesg n)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="options-mesg-n-checkbox" checked>
             </div>
-            <h4>Make sure that checkwinsize is enabled</h4>
-            <div class="form-group row col-4">
-                <input checked data-toggle="toggle" data-on="Enable" data-off="Disable(default)" data-onstyle="success" data-offstyle="warning" type="checkbox" id="options-checkwinsize-checkbox">
+            <h4>Ensure checkwinsize is enabled</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="options-checkwinsize-checkbox" checked>
             </div>
-            <h4>Add IGNOREEOF </h4>
-            <div class="form-group row">
-                <div class="col-8">
-                    <input type="number" min="0" max="5" class="form-control" id="options-ignore-eofs-input" title="TODO">
+            <h4>Add IGNOREEOF</h4>
+            <div class="row mb-3">
+                <div class="col-8"><input type="number" min="0" max="5" class="form-control" id="options-ignore-eofs-input"></div>
+                <div class="col-4"><button class="btn btn-info w-100" type="button" id="options-ignore-eofs-example">Example</button></div>
+            </div>
+        </div>
+
+        <!-- Prompt -->
+        <div class="tab-pane fade p-4" id="prompt-pane" role="tabpanel" aria-labelledby="prompt-tab">
+            <div class="d-flex gap-2 mb-4">
+                <button type="button" class="btn btn-sm btn-success" id="prompt-select-all">☑ Select All</button>
+                <button type="button" class="btn btn-sm btn-warning" id="prompt-deselect-all">☐ Deselect All</button>
+            </div>
+
+            <div class="alert alert-warning mb-4" role="alert">
+                <h4 class="alert-heading mb-3">
+                    <span class="me-2">⚙️</span>Enable Custom Prompt
+                </h4>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="prompt-enable-checkbox" checked>
+                    <label class="form-check-label" for="prompt-enable-checkbox">
+                        <strong>Add PS1 customization to .bashrc</strong>
+                    </label>
                 </div>
-                <div class="col-4">
-                    <button class="btn btn-info" type="button" id="options-ignore-eofs-example">Example</button>
+                <small class="text-muted d-block mt-2">
+                    When disabled, no custom prompt will be added to your .bashrc (bash will use the system default).
+                </small>
+            </div>
+
+            <div class="alert alert-info mb-4" role="alert">
+                <strong>Live Preview:</strong>
+                <div id="prompt-preview" class="mt-2 p-2 rounded" style="background-color: #000; color: #fff; font-family: monospace;">
+                    <span id="prompt-preview-text"></span>
                 </div>
             </div>
 
+            <h4>Username</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="prompt-username-checkbox" checked>
+            </div>
+
+            <h4>Hostname</h4>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="prompt-hostname-checkbox" checked>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="hostname-type" id="prompt-hostname-full" value="full" checked>
+                        <label class="form-check-label" for="prompt-hostname-full">Full hostname</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="hostname-type" id="prompt-hostname-short" value="short">
+                        <label class="form-check-label" for="prompt-hostname-short">Short hostname</label>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Current Directory</h4>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="prompt-directory-checkbox" checked>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="directory-type" id="prompt-directory-full" value="full" checked>
+                        <label class="form-check-label" for="prompt-directory-full">Full path</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="directory-type" id="prompt-directory-basename" value="basename">
+                        <label class="form-check-label" for="prompt-directory-basename">Basename only</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <h4>Exit Code (show if non-zero)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="prompt-exitcode-checkbox">
+            </div>
+
+            <h4>Timestamp</h4>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="prompt-time-checkbox">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <input type="text" class="form-control" id="prompt-time-format" placeholder="e.g., %H:%M:%S" value="%H:%M:%S">
+                </div>
+            </div>
+
+            <h4>Prompt Symbol</h4>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <input type="text" class="form-control" id="prompt-symbol-input" placeholder="$ or #" value="$">
+                </div>
+                <div class="col-6">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="prompt-symbol-root-checkbox" checked>
+                        <label class="form-check-label" for="prompt-symbol-root-checkbox">Use # for root</label>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Colors</h4>
+            <div class="row mb-3">
+                <div class="col-md-6 mb-2">
+                    <label for="prompt-color-username" class="form-label">Username Color</label>
+                    <select class="form-select" id="prompt-color-username">
+                        <option value="0;32" selected>Green</option>
+                        <option value="0;34">Blue</option>
+                        <option value="0;36">Cyan</option>
+                        <option value="0;33">Yellow</option>
+                        <option value="0;35">Magenta</option>
+                        <option value="0;31">Red</option>
+                        <option value="1;32">Bright Green</option>
+                        <option value="1;34">Bright Blue</option>
+                        <option value="1;36">Bright Cyan</option>
+                        <option value="0;37">White</option>
+                        <option value="">None (default)</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label for="prompt-color-hostname" class="form-label">Hostname Color</label>
+                    <select class="form-select" id="prompt-color-hostname">
+                        <option value="0;32">Green</option>
+                        <option value="0;34" selected>Blue</option>
+                        <option value="0;36">Cyan</option>
+                        <option value="0;33">Yellow</option>
+                        <option value="0;35">Magenta</option>
+                        <option value="0;31">Red</option>
+                        <option value="1;32">Bright Green</option>
+                        <option value="1;34">Bright Blue</option>
+                        <option value="1;36">Bright Cyan</option>
+                        <option value="0;37">White</option>
+                        <option value="">None (default)</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label for="prompt-color-directory" class="form-label">Directory Color</label>
+                    <select class="form-select" id="prompt-color-directory">
+                        <option value="0;32">Green</option>
+                        <option value="0;34">Blue</option>
+                        <option value="0;36">Cyan</option>
+                        <option value="0;33" selected>Yellow</option>
+                        <option value="0;35">Magenta</option>
+                        <option value="0;31">Red</option>
+                        <option value="1;32">Bright Green</option>
+                        <option value="1;34">Bright Blue</option>
+                        <option value="1;36">Bright Cyan</option>
+                        <option value="0;37">White</option>
+                        <option value="">None (default)</option>
+                    </select>
+                </div>
+            </div>
+
+            <h4>Separators</h4>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="prompt-separator-main" class="form-label">Component Separator</label>
+                    <input type="text" class="form-control" id="prompt-separator-main" value="@" maxlength="5">
+                </div>
+                <div class="col-6">
+                    <label for="prompt-separator-path" class="form-label">Path Separator</label>
+                    <input type="text" class="form-control" id="prompt-separator-path" value=":" maxlength="5">
+                </div>
+            </div>
+
+            <h4>Newline before prompt</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="prompt-newline-checkbox">
+            </div>
         </div>
+
+        <!-- Advanced -->
+        <div class="tab-pane fade p-4" id="advanced-pane" role="tabpanel" aria-labelledby="advanced-tab">
+            <div class="d-flex gap-2 mb-4">
+                <button type="button" class="btn btn-sm btn-success" id="advanced-select-all">☑ Select All</button>
+                <button type="button" class="btn btn-sm btn-warning" id="advanced-deselect-all">☐ Deselect All</button>
+            </div>
+
+            <h3 class="mb-3">PATH Management</h3>
+
+            <h4>Prepend to PATH</h4>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <input type="text" class="form-control" id="path-prepend-input"
+                           placeholder="e.g., /usr/local/bin:$HOME/bin">
+                    <small class="form-text text-muted">Separate multiple paths with colons (:)</small>
+                </div>
+            </div>
+
+            <h4>Append to PATH</h4>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <input type="text" class="form-control" id="path-append-input"
+                           placeholder="e.g., $HOME/.local/bin">
+                    <small class="form-text text-muted">Separate multiple paths with colons (:)</small>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <h3 class="mb-3">Debug Settings</h3>
+
+            <h4>Enable PS4 Debug Prompt</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="ps4-debug-checkbox">
+                <label class="form-check-label" for="ps4-debug-checkbox">
+                    Add debug prompt for script debugging (set -x)
+                    <a href="https://alexbaranowski.github.io/bash-bushido-book/#debug-bash-script" target="_blank" rel="noopener noreferrer" class="ms-1">📖 Learn more</a>
+                </label>
+            </div>
+
+            <hr class="my-4">
+
+            <h3 class="mb-3">Shell Options (shopt)</h3>
+
+            <h4>Enable globstar (recursive ** wildcards)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-globstar-checkbox">
+            </div>
+
+            <h4>Enable extglob (extended pattern matching)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-extglob-checkbox">
+            </div>
+
+            <h4>Enable nocaseglob (case-insensitive globbing)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-nocaseglob-checkbox">
+            </div>
+
+            <h4>Enable autocd (cd by typing directory name)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-autocd-checkbox">
+            </div>
+
+            <h4>Enable cdspell (auto-correct minor typos in cd)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-cdspell-checkbox">
+            </div>
+
+            <h4>Enable dirspell (auto-correct directory names during completion)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-dirspell-checkbox">
+            </div>
+
+            <h4>Enable dotglob (include hidden files in wildcards)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-dotglob-checkbox">
+            </div>
+
+            <h4>Enable nullglob (unmatched patterns expand to nothing)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-nullglob-checkbox">
+            </div>
+
+            <h4>Enable cdable_vars (cd to variables as directories)</h4>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="shopt-cdable-vars-checkbox">
+            </div>
+        </div>
+
     </div>
-    <button type="button" class="btn btn-outline-success btn-lg btn-block mt-3" id="generate-button">Generate bashrc</button>
-    <div class="form-group">
-        <h2 class="mt-3">Generated bashrc</h2>
-        <textarea class="form-control mt-3" rows="14" id="generated-bashrc"></textarea>
+
+    <div class="d-grid mb-3">
+        <button type="button" class="btn btn-danger" id="reset-all-button">↺ Reset All</button>
     </div>
+
+    <div class="mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="mb-0">Generated <code>.bashrc</code></h2>
+            <div class="d-flex gap-2">
+                <button type="button" class="btn btn-warning btn-lg" id="copy-button">
+                    📋 Copy
+                </button>
+                <button type="button" class="btn btn-success btn-lg" id="download-button">
+                    ⬇ Download
+                </button>
+            </div>
+        </div>
+        <textarea class="form-control" rows="14" id="generated-bashrc" spellcheck="false" readonly></textarea>
+    </div>
+
+    <!-- ── Options Reference ───────────────────────────────────────────── -->
+    <section id="options-reference" class="mb-5">
+        <h2 class="mb-1">Bash Configuration Options Reference Guide</h2>
+        <p class="mb-4">Complete documentation for all .bashrc settings available in this generator.
+            Learn what each option does, see examples, and find links to the official
+            <a href="https://www.gnu.org/software/bash/manual/bash.html" target="_blank" rel="noopener noreferrer">GNU Bash manual ↗</a>
+            for in-depth information.
+        </p>
+
+        <!-- History -->
+        <h3 class="mb-3">History Settings</h3>
+        <dl class="reference-list">
+            <dt>HISTFILESIZE</dt>
+            <dd>Maximum number of lines kept in the history file (<code>~/.bash_history</code>).
+                When the limit is exceeded the oldest entries are pruned.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-History-Facilities" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>HISTSIZE</dt>
+            <dd>Number of commands remembered in the <em>in-memory</em> history list for the
+                current session. Each new terminal loads up to this many entries from
+                <code>HISTFILE</code>.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-History-Facilities" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>HISTIGNORE</dt>
+            <dd>Colon-separated list of glob patterns. Any command matching a pattern is
+                silently dropped from the history list. Useful for noisy commands
+                (<code>ls</code>, <code>cd</code>) or to avoid accidentally recording secrets.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>HISTCONTROL</dt>
+            <dd>Controls duplicate handling.
+                <code>ignoredups</code> — skip adjacent duplicates;
+                <code>ignorespace</code> — skip commands prefixed with a space;
+                <code>ignoreboth</code> — both of the above;
+                <code>erasedups</code> — remove <em>all</em> earlier duplicates of each new entry.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>HISTTIMEFORMAT</dt>
+            <dd>When set, <code>history</code> prepends a timestamp (formatted via
+                <code>strftime</code>) to every entry. Must end with a space character so the
+                command text is separated from the timestamp.
+                Example: <code>%Y-%m-%d %T </code>
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>HISTFILE</dt>
+            <dd>Path to the file where history is persisted between sessions.
+                Defaults to <code>~/.bash_history</code>. Useful if you want separate history
+                files per project or machine role.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>histappend (shopt)</dt>
+            <dd>By default Bash <em>overwrites</em> <code>HISTFILE</code> on exit. With
+                <code>histappend</code> set, Bash appends instead, preserving history from
+                other open sessions.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>Shared history</dt>
+            <dd>Hooks <code>PROMPT_COMMAND</code> to flush (<code>history -a</code>), clear
+                (<code>history -c</code>), and reload (<code>history -r</code>) the history
+                list before every prompt, so commands from all open terminals are immediately
+                visible everywhere.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+        </dl>
+
+        <!-- Aliases -->
+        <h3 class="mt-4 mb-3">Aliases</h3>
+        <dl class="reference-list">
+            <dt>pushd / popd as cd</dt>
+            <dd>Replaces <code>cd</code> with <code>pushd</code> so every directory change is
+                recorded on the directory stack. Use <code>back</code> to return to the previous
+                directory. Both builtins are silenced to keep output clean.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Directory-Stack-Builtins" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>cd aliases (.., ..., ....)</dt>
+            <dd>Shortcuts for navigating up the directory tree:
+                <code>..</code> (one level up), <code>...</code> (two), <code>....</code>
+                (three), <code>.....</code> (four).
+            </dd>
+
+            <dt>Safer rm / mv / cp / ln</dt>
+            <dd>Adds <code>-i</code> (prompt before overwrite) to <code>mv</code>,
+                <code>cp</code>, and <code>ln</code>. Uses <code>-I</code> (prompt once before
+                removing more than 3 files) and <code>--preserve-root</code> (refuse to operate
+                recursively on <code>/</code>) on <code>rm</code>.
+            </dd>
+
+            <dt>sudo alias</dt>
+            <dd>The trailing space in <code>alias sudo='sudo '</code> instructs Bash to
+                check the next word for alias expansion, so your other aliases continue to work
+                correctly after <code>sudo</code>.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Aliases" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>mkdir -pv</dt>
+            <dd>Creates all intermediate parent directories as needed (<code>-p</code>) and
+                prints each directory as it is created (<code>-v</code>), giving you a clear
+                audit trail.
+            </dd>
+
+            <dt>vi → vim</dt>
+            <dd>Redirects the classic <code>vi</code> command to <code>vim</code>, the improved
+                editor, without having to retrain muscle memory.
+            </dd>
+
+            <dt>Colorized grep</dt>
+            <dd>Passes <code>--color=auto</code> to <code>grep</code>, <code>egrep</code>, and
+                <code>fgrep</code> so pattern matches are highlighted in terminal output.
+                Only activates when output goes to a terminal (not a pipe).
+            </dd>
+
+            <dt>colordiff</dt>
+            <dd>If <code>colordiff</code> is installed, replaces the plain unified diff output
+                with a syntax-colored version. The <code>hash</code> guard makes the alias a
+                no-op when <code>colordiff</code> is absent.
+            </dd>
+
+            <dt>pbcopy / pbpaste</dt>
+            <dd>Brings macOS-style clipboard commands to Linux using
+                <code>xclip</code>. Requires <code>xclip</code> to be installed
+                (<code>sudo apt install xclip</code>).
+            </dd>
+
+            <dt>now</dt>
+            <dd>Prints the current date, time, and ISO week number in one shot.
+                Handy for quickly stamping notes or log entries.
+            </dd>
+
+            <dt>my_ip</dt>
+            <dd>Queries the <code>ifconfig.co</code> API and pretty-prints your public IP
+                information as JSON using Python's built-in
+                <code>json.tool</code> module.
+            </dd>
+        </dl>
+
+        <!-- Options -->
+        <h3 class="mt-4 mb-3">Options</h3>
+        <dl class="reference-list">
+            <dt>EDITOR and VISUAL</dt>
+            <dd>The preferred text editor invoked by programs such as
+                <code>git commit</code>, <code>crontab -e</code>, and <code>visudo</code>.
+                <code>VISUAL</code> is intended for full-screen editors; most modern tools
+                check it first and fall back to <code>EDITOR</code>.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>PAGER</dt>
+            <dd>The program used to display multi-page output (e.g. <code>man</code>,
+                <code>git log</code>). Common choices: <code>less</code> (feature-rich, the
+                default on most distros), <code>most</code> (colour support, multiple windows),
+                <code>more</code> (simple, always available).
+            </dd>
+
+            <dt>Auto Logout Timeout (TMOUT)</dt>
+            <dd>When set to a positive integer, Bash automatically exits after that many
+                seconds of inactivity. A useful security measure on shared, public, or
+                unattended terminals.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>mesg n</dt>
+            <dd>Prevents other logged-in users from writing messages to your terminal with
+                <code>write</code> or <code>wall</code>. Reduces interruptions and provides
+                a small privacy/security benefit on multi-user systems.
+            </dd>
+
+            <dt>checkwinsize (shopt)</dt>
+            <dd>After each command, Bash checks the terminal window size and updates the
+                <code>LINES</code> and <code>COLUMNS</code> variables accordingly. Without
+                this, text can wrap incorrectly after resizing the terminal window.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>IGNOREEOF</dt>
+            <dd>The number of consecutive <kbd>Ctrl-D</kbd> (EOF) signals Bash ignores before
+                actually exiting. Setting it to <code>2</code> means you must press
+                <kbd>Ctrl-D</kbd> three times in a row to quit, preventing accidental logouts.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+        </dl>
+
+        <!-- Prompt -->
+        <h3 class="mt-4 mb-3">Prompt (PS1)</h3>
+        <dl class="reference-list">
+            <dt>PS1</dt>
+            <dd>The primary prompt string displayed before each command. Bash interprets
+                special escape sequences like <code>\u</code> (username), <code>\h</code>
+                (hostname), <code>\w</code> (working directory), and <code>\$</code> ($ for
+                users, # for root).
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Controlling-the-Prompt" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>Username (\u)</dt>
+            <dd>Expands to the current username. Useful for identifying which account you're
+                logged in as, especially in multi-user environments or when using <code>su</code>.
+            </dd>
+
+            <dt>Hostname (\h / \H)</dt>
+            <dd><code>\h</code> shows the short hostname (up to the first dot);
+                <code>\H</code> shows the fully-qualified domain name. Helps you remember
+                which machine you're working on when managing multiple servers.
+            </dd>
+
+            <dt>Directory (\w / \W)</dt>
+            <dd><code>\w</code> displays the full current working directory path with
+                <code>~</code> shorthand for home; <code>\W</code> shows only the basename
+                (final directory component). Essential for navigation context.
+            </dd>
+
+            <dt>Exit Code</dt>
+            <dd>Conditional display using command substitution to show the previous command's
+                exit status only when non-zero. Helps catch errors without cluttering the prompt.
+            </dd>
+
+            <dt>Timestamp (\D{format})</dt>
+            <dd>Inserts the current date/time formatted per <code>strftime</code>.
+                Useful for timestamping terminal sessions or correlating shell activity with logs.
+            </dd>
+
+            <dt>ANSI Colors</dt>
+            <dd>Escape sequences <code>\[\e[...m\]</code> set text color/style. The
+                <code>\[...\]</code> brackets tell readline to ignore non-printing characters
+                so line wrapping and editing work correctly.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Controlling-the-Prompt" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+        </dl>
+
+        <!-- PATH -->
+        <h3 class="mt-4 mb-3">PATH Management</h3>
+        <dl class="reference-list">
+            <dt>PATH</dt>
+            <dd>Colon-separated list of directories where Bash searches for executables. When
+                you type a command name, Bash checks each PATH directory in order until it finds
+                a matching executable (or reports "command not found").
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>Prepend to PATH</dt>
+            <dd>Adding directories at the <em>start</em> of PATH gives them highest priority.
+                Use this for custom tools or newer versions that should override system defaults.
+                Example: <code>export PATH="/usr/local/bin:$PATH"</code>
+            </dd>
+
+            <dt>Append to PATH</dt>
+            <dd>Adding directories at the <em>end</em> of PATH gives them lowest priority, used
+                only if the command isn't found earlier. Safe for optional tools or fallback
+                locations. Example: <code>export PATH="$PATH:$HOME/.local/bin"</code>
+            </dd>
+        </dl>
+
+        <!-- Debug Settings -->
+        <h3 class="mt-4 mb-3">Debug Settings</h3>
+        <dl class="reference-list">
+            <dt>PS4 (Debug Prompt)</dt>
+            <dd>The prompt displayed before each command when running Bash in debug/trace mode
+                (<code>set -x</code> or <code>bash -x</code>). The enhanced PS4 shows the
+                source file, line number, and function name for each executed command, making
+                script debugging much easier. Essential for understanding script flow and
+                identifying where errors occur.
+                <br>
+                Format: <code>+(source_file:line_number): function_name(): </code>
+                <br>
+                Example output: <code>+(myscript.sh:42): main(): echo "Hello"</code>
+                <br>
+                <a href="https://alexbaranowski.github.io/bash-bushido-book/#debug-bash-script" target="_blank" rel="noopener noreferrer">Bash Bushido Book: Debug Bash Scripts ↗</a>
+                |
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#Bash-Variables" target="_blank" rel="noopener noreferrer">GNU Bash manual ↗</a>
+            </dd>
+        </dl>
+
+        <!-- Shell Options -->
+        <h3 class="mt-4 mb-3">Shell Options (shopt)</h3>
+        <dl class="reference-list">
+            <dt>globstar</dt>
+            <dd>Enables the <code>**</code> glob pattern to match all files and directories
+                recursively. <code>**/*.txt</code> finds every .txt file in the current tree.
+                Requires Bash 4.0+.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>extglob</dt>
+            <dd>Enables extended pattern matching operators: <code>?(pattern)</code> (zero or one),
+                <code>*(pattern)</code> (zero or more), <code>+(pattern)</code> (one or more),
+                <code>@(pattern)</code> (exactly one), <code>!(pattern)</code> (anything except).
+                Powerful for complex filename filters.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>nocaseglob</dt>
+            <dd>Makes filename globbing case-insensitive. <code>*.TXT</code> matches
+                <code>readme.txt</code>, <code>README.TXT</code>, etc. Useful on
+                case-insensitive filesystems or when dealing with inconsistent naming.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>autocd</dt>
+            <dd>Typing a directory name alone (no <code>cd</code> command) automatically
+                changes to that directory. <code>/etc</code> becomes equivalent to
+                <code>cd /etc</code>. Requires Bash 4.0+.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>cdspell</dt>
+            <dd>Auto-corrects minor spelling mistakes in <code>cd</code> arguments: transposed
+                characters, missing characters, or one extra character. Helps when you type
+                <code>cd /sur/local/bin</code> instead of <code>/usr/local/bin</code>.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>dirspell</dt>
+            <dd>Auto-corrects directory name spelling during tab completion (similar to
+                <code>cdspell</code> but for readline). Requires Bash 4.0+.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>dotglob</dt>
+            <dd>Includes files starting with <code>.</code> (hidden files) in glob expansion.
+                Without this, <code>*</code> skips <code>.bashrc</code>, <code>.config</code>, etc.
+                Useful for operations on all files including hidden ones.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>nullglob</dt>
+            <dd>When a glob pattern has no matches, it expands to nothing (empty string) instead
+                of the literal pattern. Prevents errors in <code>for</code> loops when no files
+                match. Use carefully—can cause unexpected behavior if not handled.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+
+            <dt>cdable_vars</dt>
+            <dd>If <code>cd</code> argument isn't a directory, treat it as a variable name and
+                <code>cd</code> to that variable's value. Lets you define shortcuts:
+                <code>export proj="$HOME/projects"; cd proj</code>.
+                <a href="https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin" target="_blank" rel="noopener noreferrer">manual ↗</a>
+            </dd>
+        </dl>
+    </section>
+
 </div>
 
 <footer class="footer mt-auto py-3">
     <div class="container">
         Made With Love by: <a href="https://entite.me">Alex Baranowski</a>, Copyleft – all rights reversed
-        <span class="float-right"><a href="https://www.amazon.com/Bash-Bushido-Alex-Baranowski-ebook/dp/B082Z65LCD/">Bash Bushido book</a>
-    </span>
+        <span class="float-end">
+            <a href="https://www.amazon.com/Bash-Bushido-Alex-Baranowski-ebook/dp/B082Z65LCD/">Bash Bushido book</a>
+        </span>
     </div>
 </footer>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<!-- Bootstrap 5 JS bundle (includes Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="./custom.js"></script>
 
 </body>
