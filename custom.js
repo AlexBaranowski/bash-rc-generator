@@ -252,7 +252,7 @@ function generateBashrc() {
         '  else', '    builtin pushd "$1" > /dev/null',
         '  fi', '}'
     ].join('\n');
-    const str_cd_aliases      = ['alias ..="cd .."', 'alias ...="cd ../../../"', 'alias ....="cd ../../../../"', 'alias .....="cd ../../../../"'].join('\n');
+    const str_cd_aliases      = ['alias ..="cd .."', 'alias ...="cd ../../"', 'alias ....="cd ../../../"', 'alias .....="cd ../../../../"'].join('\n');
     const str_safer_aliases   = ["alias rm='rm -I --preserve-root'", "alias mv='mv -i'", "alias cp='cp -i'", "alias ln='ln -i'"].join('\n');
     const str_sudo_alias      = "alias sudo='sudo '";
     const str_alias_mkdir     = 'alias mkdir="mkdir -pv"';
