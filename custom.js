@@ -66,6 +66,7 @@ const persistableFields = [
     { id: 'options-mesg-n-checkbox',         type: 'checked' },
     { id: 'options-checkwinsize-checkbox',   type: 'checked' },
     // prompt builder
+    { id: 'prompt-enable-checkbox',          type: 'checked' },
     { id: 'prompt-username-checkbox',        type: 'checked' },
     { id: 'prompt-hostname-checkbox',        type: 'checked' },
     { id: 'prompt-directory-checkbox',       type: 'checked' },
@@ -83,6 +84,8 @@ const persistableFields = [
     // advanced - PATH
     { id: 'path-prepend-input',              type: 'value'   },
     { id: 'path-append-input',               type: 'value'   },
+    // advanced - debug
+    { id: 'ps4-debug-checkbox',              type: 'checked' },
     // advanced - shopt
     { id: 'shopt-globstar-checkbox',         type: 'checked' },
     { id: 'shopt-extglob-checkbox',          type: 'checked' },
@@ -321,9 +324,10 @@ function generateBashrc() {
         hist_strings.push(str_hist_append);
     }
 
-    // PS1 Prompt
+    // PS1 Prompt (only if enabled)
+    const prompt_enabled = chk('prompt-enable-checkbox');
     const ps1 = generatePS1();
-    const prompt_output = ps1 ? `export PS1='${ps1}'` : null;
+    const prompt_output = (prompt_enabled && ps1) ? `export PS1='${ps1}'` : null;
 
     // PATH Management
     const path_prepend = val('path-prepend-input');
@@ -335,6 +339,10 @@ function generateBashrc() {
     if (path_append) {
         path_strings.push(`export PATH="$PATH:${path_append}"`);
     }
+
+    // Debug Settings
+    const ps4_debug = chk('ps4-debug-checkbox');
+    const ps4_string = ps4_debug ? `export PS4='+(\${BASH_SOURCE}:\${LINENO}): \${FUNCNAME[0]:+\${FUNCNAME[0]}(): }'` : null;
 
     // Shell Options (shopt)
     const shopt_options = [
@@ -370,6 +378,10 @@ function generateBashrc() {
         generated_results.push('\n# PATH Management');
         generated_results.push(path_strings.join('\n'));
     }
+    if (ps4_string) {
+        generated_results.push('\n# Debug Settings');
+        generated_results.push(ps4_string);
+    }
     if (shopt_strings.length > 0) {
         generated_results.push('\n# Shell Options');
         generated_results.push(shopt_strings.join('\n'));
@@ -391,6 +403,7 @@ const livePreviewIds = [
     'alias-now-checkbox', 'alias-my-ip-checkbox',
     'options-editor-input', 'options-pager-input', 'options-logout-timer-input',
     'options-mesg-n-checkbox', 'options-checkwinsize-checkbox', 'options-ignore-eofs-input',
+    'prompt-enable-checkbox',
     'prompt-username-checkbox', 'prompt-hostname-checkbox', 'prompt-directory-checkbox',
     'prompt-exitcode-checkbox', 'prompt-time-checkbox',
     'prompt-symbol-root-checkbox', 'prompt-newline-checkbox',
@@ -400,6 +413,7 @@ const livePreviewIds = [
     'prompt-hostname-full', 'prompt-hostname-short',
     'prompt-directory-full', 'prompt-directory-basename',
     'path-prepend-input', 'path-append-input',
+    'ps4-debug-checkbox',
     'shopt-globstar-checkbox', 'shopt-extglob-checkbox', 'shopt-nocaseglob-checkbox',
     'shopt-autocd-checkbox', 'shopt-cdspell-checkbox', 'shopt-dirspell-checkbox',
     'shopt-dotglob-checkbox', 'shopt-nullglob-checkbox', 'shopt-cdable-vars-checkbox',
